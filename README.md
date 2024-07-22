@@ -1,8 +1,7 @@
-# React + Vite
+# To-Do-List
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Приложение To-Do-List предназначено для создания и просмотра списка задач. Оно включает страницу авторизации и регистрации, личный кабинет пользователя со страницами Dashboard(отслеживание статуса задач), VitalTask(информация о срочных задачах), MyTask(просмотр списка задач).
 
-Currently, two official plugins are available:
+Используемые технологии: React, React router, Mantine.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Ссылка на макет: https://www.figma.com/design/6GwhPPIFwq376yP5PYc9EG/To-do-List-Web-App-Design-(Community)?node-id=398-376&t=7YypcpxdcrDoOZVF-0
