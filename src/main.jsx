@@ -15,6 +15,9 @@ import { Account } from './components/account.jsx';
 import { Info } from './components/info.jsx';
 import { VitalTasks } from './components/vital-tasks.jsx';
 
+import "@mantine/core/styles.css";
+import { MantineProvider } from "@mantine/core";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -53,6 +56,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <MantineProvider>
+      <RouterProvider router={router} />
+    </MantineProvider>
   </React.StrictMode>,
 )
