@@ -13,6 +13,7 @@ import { Tasks } from './components/tasks.jsx';
 import { Account } from './components/account.jsx';
 import { Info } from './components/info.jsx';
 import { VitalTasks } from './components/vital-tasks.jsx';
+import '@fontsource-variable/montserrat';
 
 import "@mantine/core/styles.css";
 import { MantineProvider } from "@mantine/core";

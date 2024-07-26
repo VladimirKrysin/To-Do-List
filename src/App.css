@@ -3,4 +3,9 @@ body,
 #root {
     width: 100%;
     height: 100%;
+    font-weight: 500;
+}
+
+* {
+    font-family: 'Montserrat Variable', sans-serif;
 }

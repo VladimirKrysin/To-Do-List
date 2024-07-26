@@ -1,22 +1,19 @@
-.remember-container {
-    display: flex;
-    margin-top: 1.5rem;
-}
-
-.remember-text {
-    margin-left: 1.6rem;
-    line-height: 1.2rem;
-}
-
 .container {
-    padding-top: 4.5rem;
+    padding-top: 3rem;
     padding-left: 3rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    width: max-content;
+    height: 100%;
+    display: flex;
+    gap: 1rem;
     background: #FFFFFF;
     border-radius: 0.625rem;
 }
 
 .title {
     margin: 0;
+    margin-bottom: 0.5rem;
 }
 
 .wrapper {
@@ -26,13 +23,29 @@
     background: url("../../assets/background.png"), #FF6767;
 }
 
-.content-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.56rem;
-}
+
 
 .button-login-text {
     color: #F8F9FB;
 
+}
+
+.icons-container a:not(:first-child) {
+    margin-left: 0.5rem;
+}
+
+.button-login {
+    flex-shrink: 0;
+    height: 100px;
+    max-width: 8rem;
+    max-height: 13.75rem;
+    margin-top: 0.5rem;
+}
+
+/* .socials {
+    font-size: 0.875rem;
+} */
+
+.register-account {
+    margin-top: 1rem;
 }
