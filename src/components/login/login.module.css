@@ -1,0 +1,14 @@
+.title {
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+
+
+.icons-container a:not(:first-child) {
+    margin-left: 0.5rem;
+}
+
+
+.register-account {
+    margin-top: 1rem;
+}

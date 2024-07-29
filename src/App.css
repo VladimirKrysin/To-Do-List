@@ -4,7 +4,45 @@ body,
     width: 100%;
     height: 100%;
     font-weight: 500;
+    font-size: 0.875rem;
 }
+
+h1 {
+    margin: 0;
+}
+
+.wrapper {
+    padding: 4rem 0rem;
+    width: 100%;
+    height: 100%;
+    background: url("./assets/background.png"), #FF6767;
+}
+
+.container {
+    padding-top: 3rem;
+    padding-left: 3rem;
+    margin-left: 3rem;
+    padding-right: 3rem;
+    width: max-content;
+    height: 100%;
+    display: flex;
+    gap: 1rem;
+    background: #FFFFFF;
+    border-radius: 0.625rem;
+}
+
+.button-login {
+    flex-shrink: 0;
+    height: 100px;
+    max-width: 8rem;
+    max-height: 13.75rem;
+    margin-top: 0.5rem;
+}
+
+.button-login-text {
+    color: #F8F9FB;
+}
+
 
 * {
     font-family: 'Montserrat Variable', sans-serif;

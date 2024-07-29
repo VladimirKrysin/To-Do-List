@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { Root } from './components/root.jsx';
 import { Login } from './components/login/login.jsx';
-import { Register } from './components/register.jsx';
+import { Register } from './components/register/register.jsx';
 import { Dashboard } from './components/dashboard.jsx';
 import { Tasks } from './components/tasks.jsx';
 import { Account } from './components/account.jsx';
