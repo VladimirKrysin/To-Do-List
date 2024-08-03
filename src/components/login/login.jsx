@@ -5,9 +5,6 @@ import { PasswordInputBase } from "../../ui/password-input-base";
 import { TextInputBase } from "../../ui/text-input-base";
 import classNames from "classnames";
 import { Button, Grid, AspectRatio, Container, Flex } from "@mantine/core";
-import GoogleIcon from "../../assets/Google.svg";
-import FacebookIcon from "../../assets/FB.svg";
-import X from "../../assets/X.svg";
 import loginGirl from "../../assets/login-girl.svg";
 import { fakeAuthProvider } from "../../services/auth";
 import styles from "./login.module.css"
@@ -35,7 +32,7 @@ export const Login = () => {
 
     const onLoginClick = async () => {
         await fakeAuthProvider.signin();
-        navigate("/account");
+        navigate("/dashboard");
     }
 
 

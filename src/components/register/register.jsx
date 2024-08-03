@@ -38,7 +38,7 @@ export const Register = () => {
 
     const onRegisterClick = async () => {
         await fakeAuthProvider.signin();
-        navigate("/account");
+        navigate("/dashboard");
     }
     return (
         <div className="wrapper">
@@ -46,7 +46,7 @@ export const Register = () => {
                 <AspectRatio ratio={0.66} maw={250}>
                     <img src={RegisterImage} />
                 </AspectRatio>
-                <Flex direction="column" gap="1rem">
+                <Flex direction="column" gap="0.75rem">
                     <h1>Sign Up</h1>
                     <TextInputBase placeholder="Enter First Name" leftSection={IconFirstName} />
                     <TextInputBase placeholder="Enter Last Name" leftSection={IconLastName} />

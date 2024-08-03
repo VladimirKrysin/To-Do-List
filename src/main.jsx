@@ -8,9 +8,8 @@ import {
 import { Root } from './components/root.jsx';
 import { Login } from './components/login/login.jsx';
 import { Register } from './components/register/register.jsx';
-import { Dashboard } from './components/dashboard.jsx';
+import { Dashboard } from './components/dashboard/dashboard.jsx';
 import { Tasks } from './components/tasks.jsx';
-import { Account } from './components/account.jsx';
 import { Info } from './components/info.jsx';
 import { VitalTasks } from './components/vital-tasks.jsx';
 import '@fontsource-variable/montserrat';
@@ -32,13 +31,9 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "/account",
-    element: <Account />,
+    path: "/dashboard",
+    element: <Dashboard />,
     children: [
-      {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
       {
         path: "tasks",
         element: <Tasks />,

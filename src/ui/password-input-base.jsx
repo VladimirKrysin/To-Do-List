@@ -5,7 +5,7 @@ export const PasswordInputBase = ({ placeholder, leftSection, value, onChange })
         <PasswordInput
             styles={{
                 innerInput: {
-                    fontSize: '0.875rem',
+                    fontSize: '0.75rem',
                     fontFamily: 'Montserrat Variable'
                 },
                 input: {
