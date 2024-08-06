@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Inter';
+    src: url("../../assets/fonts/Inter-VariableFont_opsz,wght.ttf");
+}
+
 .header {
     position: fixed;
     padding: 0 5rem;
@@ -28,8 +33,9 @@
 }
 
 .pageContainer {
-    height: calc(100% - 6rem);
+    height: 100%;
     background: rgba(245, 248, 255, 1);
+    font-family: 'Inter';
 
 }
 
@@ -44,6 +50,13 @@
 
 .todosContainer {
     padding: 1.5rem;
+    border: 1px solid rgba(161, 163, 171, 0.63);
+    box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.04),
+        0px 19px 19px 0px rgba(0, 0, 0, 0.03),
+        0px 44px 26px 0px rgba(0, 0, 0, 0.02),
+        0px 77px 31px 0px rgba(0, 0, 0, 0.01),
+        0px 121px 34px 0px rgba(0, 0, 0, 0);
+
     display: grid;
     grid-template-areas:
         "active stats"
@@ -52,14 +65,16 @@
 
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
+}
 
-    border: 1px solid rgba(161, 163, 171, 0.63);
-
+.activeHeader {
+    width: 26rem;
 }
 
 .active {
-    padding: 1rem;
-    border-radius: 1rem;
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    border-radius: 0.875rem;
+    width: 29rem;
     grid-area: active;
     background: rgba(245, 248, 255, 1);
     box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.04),
@@ -74,8 +89,50 @@
 
 }
 
+.activeTitle {
+    color: rgba(255, 103, 103, 1);
+}
+
+.activeList {
+    margin-top: 2rem;
+    padding-left: 0.5rem;
+    list-style: none;
+}
+
+.activeItemDesc {
+    position: relative;
+    padding: 0.75rem;
+    border: 1px solid rgba(161, 163, 171, 1);
+    border-radius: 0.875rem;
+    background: rgba(245, 248, 255, 1);
+
+}
+
+.itemTitle {
+    color: rgba(0, 0, 0, 1);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.itemDesc {
+    font-family: 'Inter';
+    font-size: 0.875rem;
+    color: rgba(116, 116, 116, 1);
+}
+
+.activeDescCont {
+    padding-left: 2rem;
+}
+
+.activeTextCont {
+    margin-top: 0.875rem;
+    padding-left: 2rem;
+    font-size: 0.75rem;
+}
+
 .stats {
-    grid-area: stats;
+    border: 1px solid rgba(161, 163, 171, 1);
+    border-radius: 1rem;
     box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.04),
 
         0px 13px 13px 0px rgba(0, 0, 0, 0.03),
@@ -85,11 +142,14 @@
         0px 53px 21px 0px rgba(0, 0, 0, 0.01),
 
         0px 83px 23px 0px rgba(0, 0, 0, 0);
+    grid-area: stats;
+
 
 }
 
 .completed {
-    grid-area: completed;
+    border: 1px solid rgba(161, 163, 171, 1);
+    border-radius: 1rem;
     box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.04),
 
         0px 11px 11px 0px rgba(0, 0, 0, 0.03),
@@ -100,4 +160,34 @@
 
         0px 71px 20px 0px rgba(0, 0, 0, 0);
 
+    grid-area: completed;
+}
+
+.addButton {
+    border: none;
+    background: transparent;
+}
+
+.addText {
+    margin-left: 0.4rem;
+    color: rgba(161, 163, 171, 1);
+
+}
+
+h3,
+h4 {
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+.status {
+    margin-left: 1rem;
 }

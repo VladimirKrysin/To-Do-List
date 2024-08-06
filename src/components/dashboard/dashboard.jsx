@@ -4,8 +4,12 @@ import SearchIcon from "../../assets/SearchICon.svg?react"
 import Notification from "../../assets/Notifications.svg?react"
 import Calendar from "../../assets/Calendar.svg?react";
 import DashboardLogo from "../../assets/Dashboard.svg?react";
+import AddTask from "../../assets/addTask.svg?react";
+import ActiveTasks from "../../assets/ActiveTasks.svg?react"
+import ActiveIcon from "../../assets/ActiveIcon.svg?react"
+import taskPhoto from "../../assets/taskPhoto.png";
 import styles from "./dashboard.module.css"
-import { Flex, Container } from "@mantine/core";
+import { Flex, px } from "@mantine/core";
 export const Dashboard = () => {
     return (
         <>
@@ -29,20 +33,38 @@ export const Dashboard = () => {
                 <main className={styles.mainWrapper}>
                     <div className={styles.todosContainer}>
                         <section className={styles.active}>
-                            <div>
-                                <h2>To-Do</h2>
-                                <button>Add task</button>
-                            </div>
-                            <ul>
-                                <li>
-                                    <a>
-                                        <article>
-                                            <h3>Attend Nischal’s Birthday Party</h3>
-                                            <p>Buy gifts on the way and pick up cake from the bakery. (6 PM | Fresh Elements).....</p>
-                                            <span>Priority:<span>Moderate</span></span>
-                                            <span>Status:<span>Not Started</span></span>
-                                        </article>
+                            <Flex className={styles.activeHeader} gap="15rem">
+                                <Flex gap="0.5rem" justify="center" align="center">
+                                    <ActiveTasks />
+                                    <h4 className={styles.activeTitle}>To-Do</h4>
+                                </Flex>
+                                <Flex justify="center" align="center">
+                                    <a href="#">
+                                        <div>
+                                            <AddTask />
+                                            <span className={styles.addText}>Add task</span>
+                                        </div>
                                     </a>
+                                </Flex>
+                            </Flex>
+                            <ul className={styles.activeList}>
+                                <li className={styles.activeItemDesc}>
+                                    <article>
+                                        <Flex gap="1rem">
+                                            <ActiveIcon />
+                                            <h3><a className={styles.itemTitle} href="#">Attend Nischal’s Birthday Party</a></h3>
+                                        </Flex>
+                                        <Flex className={styles.activeDescCont} justify="center" align="center" gap="1rem">
+                                            <p className={styles.itemDesc}>Buy gifts on the way and pick up cake from the bakery. (6 PM | Fresh Elements).....</p>
+                                            <img src={taskPhoto} alt="active task photo" />
+                                        </Flex>
+                                        <p className={styles.activeTextCont}>
+                                            <span>Priority: </span>
+                                            <span className={styles.priorType}>Moderate </span>
+                                            <span className={styles.status}>Status: </span>
+                                            <span>Not Started</span>
+                                        </p>
+                                    </article>
                                 </li>
                             </ul>
                         </section>
