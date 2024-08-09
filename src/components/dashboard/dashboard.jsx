@@ -5,12 +5,12 @@ import Notification from "../../assets/Notifications.svg?react"
 import Calendar from "../../assets/Calendar.svg?react";
 import DashboardLogo from "../../assets/Dashboard.svg?react";
 import AddTask from "../../assets/addTask.svg?react";
-import ActiveTasks from "../../assets/ActiveTasks.svg?react"
-import ActiveIcon from "../../assets/ActiveIcon.svg?react"
-import taskPhoto from "../../assets/taskPhoto.png";
+import ToDoIcon from "../../assets/ToDoIcon.svg?react";
+import { ActiveTask } from "../../ui/active-task";
 import styles from "./dashboard.module.css"
-import { Flex, px } from "@mantine/core";
+import { Flex } from "@mantine/core";
 export const Dashboard = () => {
+
     return (
         <>
             <header className={styles.header}>
@@ -35,7 +35,7 @@ export const Dashboard = () => {
                         <section className={styles.active}>
                             <Flex className={styles.activeHeader} gap="15rem">
                                 <Flex gap="0.5rem" justify="center" align="center">
-                                    <ActiveTasks />
+                                    <ToDoIcon />
                                     <h4 className={styles.activeTitle}>To-Do</h4>
                                 </Flex>
                                 <Flex justify="center" align="center">
@@ -48,24 +48,7 @@ export const Dashboard = () => {
                                 </Flex>
                             </Flex>
                             <ul className={styles.activeList}>
-                                <li className={styles.activeItemDesc}>
-                                    <article>
-                                        <Flex gap="1rem">
-                                            <ActiveIcon />
-                                            <h3><a className={styles.itemTitle} href="#">Attend Nischal’s Birthday Party</a></h3>
-                                        </Flex>
-                                        <Flex className={styles.activeDescCont} justify="center" align="center" gap="1rem">
-                                            <p className={styles.itemDesc}>Buy gifts on the way and pick up cake from the bakery. (6 PM | Fresh Elements).....</p>
-                                            <img src={taskPhoto} alt="active task photo" />
-                                        </Flex>
-                                        <p className={styles.activeTextCont}>
-                                            <span>Priority: </span>
-                                            <span className={styles.priorType}>Moderate </span>
-                                            <span className={styles.status}>Status: </span>
-                                            <span>Not Started</span>
-                                        </p>
-                                    </article>
-                                </li>
+                                <ActiveTask />
                             </ul>
                         </section>
                         <section className={styles.stats}>
@@ -77,8 +60,6 @@ export const Dashboard = () => {
                     </div>
                 </main>
             </Flex >
-
-
             <Outlet />
 
         </>
