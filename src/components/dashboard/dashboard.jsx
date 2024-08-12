@@ -8,6 +8,7 @@ import AddTask from "../../assets/addTask.svg?react";
 import ToDoIcon from "../../assets/ToDoIcon.svg?react";
 import { ActiveTask } from "../../ui/active-task";
 import styles from "./dashboard.module.css"
+import "../../App.css"
 import { Flex } from "@mantine/core";
 export const Dashboard = () => {
 
@@ -48,6 +49,9 @@ export const Dashboard = () => {
                                 </Flex>
                             </Flex>
                             <ul className={styles.activeList}>
+                                <ActiveTask />
+                                <ActiveTask />
+                                <div class={styles.line}></div>
                                 <ActiveTask />
                             </ul>
                         </section>
