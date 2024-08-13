@@ -1,0 +1,48 @@
+{
+    "posts": [
+        {
+            "id": 1,
+            "title": "json-server",
+            "author": "typicode"
+        }
+    ],
+    "comments": [
+        {
+            "id": 1,
+            "body": "some comment",
+            "postId": 1
+        }
+    ],
+    "profile": {
+        "name": "typicode"
+    },
+    "tasks": [
+        {
+            "id": 1,
+            "description": "Buy gifts on the way and pick up cake from the bakery. (6 PM | Fresh Elements).....",
+            "title": "Attend Nischal’s Birthday Party",
+            "priority": "Moderate",
+            "status": "Not Started",
+            "createdDate": "20/06/2023",
+            "imagePath": "/attendBirthday.png"
+        },
+        {
+            "id": 2,
+            "description": "Get the work done by EOD and discuss with client before leaving. (4 PM | Meeting Room)",
+            "title": "Landing Page Design for TravelDays",
+            "priority": "Moderate",
+            "status": "In Progress",
+            "createdDate": "20/06/2023",
+            "imagePath": "/landingPageTask.png"
+        },
+        {
+            "id": 3,
+            "description": "Make sure everything is functioning and all the necessities are properly met. Prepare the team and get the documents ready for...",
+            "title": "Presentation on Final Product",
+            "priority": "Moderate",
+            "status": "In Progress",
+            "createdDate": "19/06/2023",
+            "imagePath": "/presentationTask.png"
+        }
+    ]
+}

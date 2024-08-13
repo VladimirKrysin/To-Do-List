@@ -10,8 +10,22 @@ import { ActiveTask } from "../../ui/active-task";
 import styles from "./dashboard.module.css"
 import "../../App.css"
 import { Flex } from "@mantine/core";
+import { act, useEffect, useState } from "react";
 export const Dashboard = () => {
+    const [activeTasks, setActiveTasks] = useState([]);
 
+    useEffect(() => {
+        async function fetchTasks() {
+            const response = await fetch("http://localhost:3000/tasks");
+
+            if (response.ok) {
+                const data = await response.json();
+                setActiveTasks(data)
+            }
+
+        }
+        fetchTasks()
+    }, [])
     return (
         <>
             <header className={styles.header}>
@@ -49,10 +63,17 @@ export const Dashboard = () => {
                                 </Flex>
                             </Flex>
                             <ul className={styles.activeList}>
-                                <ActiveTask />
-                                <ActiveTask />
-                                <div class={styles.line}></div>
-                                <ActiveTask />
+                                {activeTasks.map((task) => {
+                                    return <ActiveTask
+                                        key={task.id}
+                                        description={task.description}
+                                        title={task.title}
+                                        priority={task.priority}
+                                        status={task.status}
+                                        createdDate={task.createdDate}
+                                        imgPath={task.imagePath}
+                                    />
+                                })}
                             </ul>
                         </section>
                         <section className={styles.stats}>
@@ -65,7 +86,6 @@ export const Dashboard = () => {
                 </main>
             </Flex >
             <Outlet />
-
         </>
 
     )
