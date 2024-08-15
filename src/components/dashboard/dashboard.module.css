@@ -57,26 +57,19 @@
         0px 77px 31px 0px rgba(0, 0, 0, 0.01),
         0px 121px 34px 0px rgba(0, 0, 0, 0);
 
-    display: grid;
-    grid-template-areas:
-        "active stats"
-        "active completed"
-        "active completed";
-
-    grid-template-columns: 1fr 1fr;
     gap: 1rem;
     background: #F5F8FF;
 }
 
 .activeHeader {
-    width: 26rem;
+    width: 32rem
 }
 
 .active {
     padding: 1rem 1.5rem 1rem 1.5rem;
     border-radius: 0.875rem;
-    width: 29rem;
-    grid-area: active;
+    width: 32rem;
+    height: fit-content;
     background: rgba(245, 248, 255, 1);
     box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.04),
 
@@ -90,12 +83,25 @@
 
 }
 
+.dateContainer {
+    margin-top: 0.75rem;
+}
+
+.todayDate {
+    font-size: 0.75rem;
+}
+
+.todayText {
+    font-size: 0.75rem;
+    color: #A1A3AB
+}
+
 .activeTitle {
     color: rgba(255, 103, 103, 1);
 }
 
 .activeList {
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding-left: 0.5rem;
     list-style: none;
 }
@@ -145,10 +151,15 @@
 }
 
 .itemTitle {
+    padding-left: 2rem;
+    display: block;
+    width: 23rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: rgba(0, 0, 0, 1);
     font-weight: 600;
     font-size: 1rem;
-    padding-left: 2rem;
 }
 
 .itemDesc {
@@ -169,8 +180,8 @@
 }
 
 .stats {
-    border: 1px solid rgba(161, 163, 171, 1);
-    border-radius: 1rem;
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    border-radius: 0.875rem;
     box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.04),
 
         0px 13px 13px 0px rgba(0, 0, 0, 0.03),
@@ -180,14 +191,14 @@
         0px 53px 21px 0px rgba(0, 0, 0, 0.01),
 
         0px 83px 23px 0px rgba(0, 0, 0, 0);
-    grid-area: stats;
+
 
 
 }
 
 .completed {
-    border: 1px solid rgba(161, 163, 171, 1);
-    border-radius: 1rem;
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    border-radius: 0.875rem;
     box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.04),
 
         0px 11px 11px 0px rgba(0, 0, 0, 0.03),
@@ -197,9 +208,6 @@
         0px 45px 18px 0px rgba(0, 0, 0, 0.01),
 
         0px 71px 20px 0px rgba(0, 0, 0, 0);
-
-    grid-area: completed;
-    height: fit-content;
 }
 
 .addButton {
@@ -246,4 +254,9 @@ a {
 
 .status {
     margin-left: 1rem;
+}
+
+.createdDateText {
+    margin-left: 1.5rem;
+    color: #A1A3AB;
 }

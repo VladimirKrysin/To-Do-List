@@ -23,7 +23,7 @@
             "title": "Attend Nischal’s Birthday Party",
             "priority": "Moderate",
             "status": "Not Started",
-            "createdDate": "20/06/2023",
+            "createdDate": "2023/06/20",
             "imagePath": "/attendBirthday.png"
         },
         {
@@ -32,7 +32,7 @@
             "title": "Landing Page Design for TravelDays",
             "priority": "Moderate",
             "status": "In Progress",
-            "createdDate": "20/06/2023",
+            "createdDate": "2023/06/20",
             "imagePath": "/landingPageTask.png"
         },
         {
@@ -41,7 +41,7 @@
             "title": "Presentation on Final Product",
             "priority": "Moderate",
             "status": "In Progress",
-            "createdDate": "19/06/2023",
+            "createdDate": "2023/06/19",
             "imagePath": "/presentationTask.png"
         }
     ]

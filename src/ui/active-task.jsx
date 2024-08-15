@@ -17,12 +17,12 @@ export const ActiveTask = ({ description, title, priority, status, createdDate, 
                 <button className={styles.activeMenu} >
                     <TaskMenuIcon />
                 </button>
-                <h3><a className={styles.itemTitle} href="#">{title}</a></h3>
+                <h3 title={title}><a className={styles.itemTitle} href="#">{title}</a></h3>
                 <Flex className={styles.activeDescCont} justify="center" align="center" gap="1rem">
                     <p className={styles.itemDesc}>{description}</p>
                     <img src={imgPath} alt="active task photo" />
                 </Flex>
-                <p className={styles.activeTextCont}>
+                <div className={styles.activeTextCont}>
                     <span>Priority: </span>
                     <span
                         className={clsx({
@@ -36,7 +36,8 @@ export const ActiveTask = ({ description, title, priority, status, createdDate, 
                             [styles.notStarted]: status === "Not Started",
                             [styles.inProgress]: status === "In Progress"
                         })}>{status}</span>
-                </p>
+                    <span className={styles.createdDateText}>Created on: {createdDate}</span>
+                </div>
             </article>
         </li >
     )

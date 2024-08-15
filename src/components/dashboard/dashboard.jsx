@@ -8,9 +8,12 @@ import AddTask from "../../assets/addTask.svg?react";
 import ToDoIcon from "../../assets/ToDoIcon.svg?react";
 import { ActiveTask } from "../../ui/active-task";
 import styles from "./dashboard.module.css"
-import "../../App.css"
+import TodayIcon from "../../assets/todayPointer.svg?react"
 import { Flex } from "@mantine/core";
-import { act, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import "../../App.css"
+
+
 export const Dashboard = () => {
     const [activeTasks, setActiveTasks] = useState([]);
 
@@ -26,6 +29,7 @@ export const Dashboard = () => {
         }
         fetchTasks()
     }, [])
+    const sortedActiveTasks = activeTasks.toSorted((a, b) => new Date(b.createdDate) - new Date(a.createdDate))
     return (
         <>
             <header className={styles.header}>
@@ -46,24 +50,27 @@ export const Dashboard = () => {
                 <nav className={styles.navigation}>
                 </nav>
                 <main className={styles.mainWrapper}>
-                    <div className={styles.todosContainer}>
+                    <Flex className={styles.todosContainer}>
                         <section className={styles.active}>
-                            <Flex className={styles.activeHeader} gap="15rem">
+                            <Flex className={styles.activeHeader} gap="18rem">
                                 <Flex gap="0.5rem" justify="center" align="center">
                                     <ToDoIcon />
                                     <h4 className={styles.activeTitle}>To-Do</h4>
                                 </Flex>
+                                <a href="#" >
+                                    <AddTask />
+                                    <span className={styles.addText}>Add task</span>
+                                </a>
+                            </Flex>
+                            <Flex className={styles.dateContainer} gap="0.75rem">
+                                <span className={styles.todayDate}> {new Intl.DateTimeFormat("en-GB", { month: "long", day: "2-digit" }).format(new Date())}</span>
                                 <Flex justify="center" align="center">
-                                    <a href="#">
-                                        <div>
-                                            <AddTask />
-                                            <span className={styles.addText}>Add task</span>
-                                        </div>
-                                    </a>
+                                    <TodayIcon />
+                                    <span className={styles.todayText}>Today</span>
                                 </Flex>
                             </Flex>
                             <ul className={styles.activeList}>
-                                {activeTasks.map((task) => {
+                                {activeTasks.toSorted((a, b) => new Date(b.createdDate) - new Date(a.createdDate)).map((task) => {
                                     return <ActiveTask
                                         key={task.id}
                                         description={task.description}
@@ -74,16 +81,29 @@ export const Dashboard = () => {
                                         imgPath={task.imagePath}
                                     />
                                 })}
+                                {/* {activeTasks.map((task) => {
+                                    return <ActiveTask
+                                        key={task.id}
+                                        description={task.description}
+                                        title={task.title}
+                                        priority={task.priority}
+                                        status={task.status}
+                                        createdDate={task.createdDate}
+                                        imgPath={task.imagePath}
+                                    />
+                                })} */}
                             </ul>
                         </section>
-                        <section className={styles.stats}>
-                            <h3>Task status</h3>
-                        </section>
-                        <section className={styles.completed}>
-                            <h3>Completed Task</h3>
-                        </section>
-                    </div>
-                </main>
+                        <Flex direction="column" gap="1rem">
+                            <section className={styles.stats}>
+                                <h3>Task status</h3>
+                            </section>
+                            <section className={styles.completed}>
+                                <h3>Completed Task</h3>
+                            </section>
+                        </Flex>
+                    </Flex>
+                </main >
             </Flex >
             <Outlet />
         </>
