@@ -30,6 +30,7 @@ export const Dashboard = () => {
         fetchTasks()
     }, [])
     const sortedActiveTasks = activeTasks.toSorted((a, b) => new Date(b.createdDate) - new Date(a.createdDate))
+    const delayedTask = structuredClone(sortedActiveTasks).find((element) => new Date(element.createdDate).setHours(0, 0, 0, 0) !== new Date().setHours(0, 0, 0, 0))
     return (
         <>
             <header className={styles.header}>
@@ -70,28 +71,32 @@ export const Dashboard = () => {
                                 </Flex>
                             </Flex>
                             <ul className={styles.activeList}>
-                                {activeTasks.toSorted((a, b) => new Date(b.createdDate) - new Date(a.createdDate)).map((task) => {
-                                    return <ActiveTask
-                                        key={task.id}
-                                        description={task.description}
-                                        title={task.title}
-                                        priority={task.priority}
-                                        status={task.status}
-                                        createdDate={task.createdDate}
-                                        imgPath={task.imagePath}
-                                    />
+                                {sortedActiveTasks.map((task) => {
+                                    if (task.createdDate !== delayedTask.createdDate) {
+                                        return <ActiveTask
+                                            key={task.id}
+                                            description={task.description}
+                                            title={task.title}
+                                            priority={task.priority}
+                                            status={task.status}
+                                            createdDate={task.createdDate}
+                                            imgPath={task.imagePath}
+                                        />
+                                    }
+                                    return <>
+                                        <div class={styles.line}></div>
+                                        <ActiveTask
+                                            key={task.id}
+                                            description={task.description}
+                                            title={task.title}
+                                            priority={task.priority}
+                                            status={task.status}
+                                            createdDate={task.createdDate}
+                                            imgPath={task.imagePath}
+                                        />
+                                    </>
+
                                 })}
-                                {/* {activeTasks.map((task) => {
-                                    return <ActiveTask
-                                        key={task.id}
-                                        description={task.description}
-                                        title={task.title}
-                                        priority={task.priority}
-                                        status={task.status}
-                                        createdDate={task.createdDate}
-                                        imgPath={task.imagePath}
-                                    />
-                                })} */}
                             </ul>
                         </section>
                         <Flex direction="column" gap="1rem">

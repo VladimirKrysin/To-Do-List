@@ -113,12 +113,8 @@
     border-radius: 0.875rem;
     background: rgba(245, 248, 255, 1);
 
-    &:first-child {
+    &:not(:last-child) {
         margin-bottom: 0.5rem;
-    }
-
-    &:last-child {
-        margin-top: 3.5rem;
     }
 }
 
@@ -259,4 +255,11 @@ a {
 .createdDateText {
     margin-left: 1.5rem;
     color: #A1A3AB;
+}
+
+.line {
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+    width: 100%;
+    border-bottom: 1px solid #A1A3AB69;
 }
