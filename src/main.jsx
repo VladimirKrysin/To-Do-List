@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -13,8 +12,8 @@ import { Tasks } from './components/tasks.jsx';
 import { Info } from './components/info.jsx';
 import { VitalTasks } from './components/vital-tasks.jsx';
 import '@fontsource-variable/montserrat';
-
 import "@mantine/core/styles.css";
+import '@mantine/charts/styles.css';
 import { MantineProvider } from "@mantine/core";
 
 const router = createBrowserRouter([

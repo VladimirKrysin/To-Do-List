@@ -6,12 +6,15 @@ import Calendar from "../../assets/Calendar.svg?react";
 import DashboardLogo from "../../assets/Dashboard.svg?react";
 import AddTask from "../../assets/addTask.svg?react";
 import ToDoIcon from "../../assets/ToDoIcon.svg?react";
+import TaskStatusIcon from "../../assets/TaskStatusIcon.svg?react";
 import { ActiveTask } from "../../ui/active-task";
+import { DonutChart } from "../../ui/donut-chart"
 import styles from "./dashboard.module.css"
 import TodayIcon from "../../assets/todayPointer.svg?react"
 import { Flex } from "@mantine/core";
 import { useEffect, useState } from "react";
 import "../../App.css"
+import { SectionHeader } from "../../ui/section-header";
 
 
 export const Dashboard = () => {
@@ -54,10 +57,10 @@ export const Dashboard = () => {
                     <Flex className={styles.todosContainer}>
                         <section className={styles.active}>
                             <Flex className={styles.activeHeader} gap="18rem">
-                                <Flex gap="0.5rem" justify="center" align="center">
-                                    <ToDoIcon />
-                                    <h4 className={styles.activeTitle}>To-Do</h4>
-                                </Flex>
+                                <SectionHeader
+                                    Icon={<ToDoIcon />}
+                                    headerText="To-Do"
+                                />
                                 <a href="#" >
                                     <AddTask />
                                     <span className={styles.addText}>Add task</span>
@@ -72,7 +75,7 @@ export const Dashboard = () => {
                             </Flex>
                             <ul className={styles.activeList}>
                                 {sortedActiveTasks.map((task) => {
-                                    if (task.createdDate !== delayedTask.createdDate) {
+                                    if (task.id !== delayedTask.id || task.id === 1) {
                                         return <ActiveTask
                                             key={task.id}
                                             description={task.description}
@@ -101,7 +104,27 @@ export const Dashboard = () => {
                         </section>
                         <Flex direction="column" gap="1rem">
                             <section className={styles.stats}>
-                                <h3>Task status</h3>
+                                <SectionHeader
+                                    Icon={<TaskStatusIcon />}
+                                    headerText="Task status"
+                                />
+                                <Flex className={styles.chartsContainer} gap="2.5rem">
+                                    <DonutChart
+                                        chartLabel={84}
+                                        payloadValue="Completed"
+                                        statusColor="#05A301"
+                                    />
+                                    <DonutChart
+                                        chartLabel={46}
+                                        payloadValue="In Progress"
+                                        statusColor="#0225FF"
+                                    />
+                                    <DonutChart
+                                        chartLabel={13}
+                                        payloadValue="Not Started"
+                                        statusColor="#F21E1E"
+                                    />
+                                </Flex>
                             </section>
                             <section className={styles.completed}>
                                 <h3>Completed Task</h3>

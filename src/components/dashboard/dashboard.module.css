@@ -88,15 +88,18 @@
 }
 
 .todayDate {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
 }
 
 .todayText {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     color: #A1A3AB
 }
 
-.activeTitle {
+.sectionHeader {
+    margin: 0;
+    margin-left: 0.5rem;
+    font-size: 1rem;
     color: rgba(255, 103, 103, 1);
 }
 
@@ -176,7 +179,7 @@
 }
 
 .stats {
-    padding: 1rem 1.5rem 1rem 1.5rem;
+    padding: 1rem 1.5rem 2.5rem 1.5rem;
     border-radius: 0.875rem;
     box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.04),
 
@@ -187,9 +190,10 @@
         0px 53px 21px 0px rgba(0, 0, 0, 0.01),
 
         0px 83px 23px 0px rgba(0, 0, 0, 0);
+}
 
-
-
+.chartsContainer {
+    margin-top: 2rem;
 }
 
 .completed {

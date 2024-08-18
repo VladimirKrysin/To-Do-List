@@ -11,13 +11,15 @@
   },
   "dependencies": {
     "@fontsource-variable/montserrat": "^5.0.19",
+    "@mantine/charts": "^7.12.1",
     "@mantine/core": "^7.11.2",
     "@tabler/icons-react": "^3.11.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.25.0"
+    "react-router-dom": "^6.25.0",
+    "recharts": "^2.12.7"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
