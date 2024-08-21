@@ -39,6 +39,17 @@
     font-family: 'Inter';
 }
 
+
+.pageTitle {
+    margin: 0;
+    margin-right: 0.875rem;
+}
+
+.imageContainer {
+    margin-left: 12rem;
+}
+
+
 .mainWrapper {
     height: auto;
     margin-left: 16rem;
@@ -49,6 +60,7 @@
 }
 
 .todosContainer {
+    margin-top: 2rem;
     padding: 1.5rem;
     border: 1px solid rgba(161, 163, 171, 0.63);
     box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.04),
@@ -66,10 +78,9 @@
 }
 
 .active {
-    padding: 1rem 1.5rem 1rem 1.5rem;
+    padding: 1rem 1.5rem 2.5rem 1.5rem;
     border-radius: 0.875rem;
     width: 32rem;
-    height: fit-content;
     background: rgba(245, 248, 255, 1);
     box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.04),
 
@@ -109,12 +120,28 @@
     list-style: none;
 }
 
-.activeItemDesc {
+.activeItemCont {
     position: relative;
     padding: 0.75rem;
     border: 1px solid rgba(161, 163, 171, 1);
     border-radius: 0.875rem;
     background: rgba(245, 248, 255, 1);
+
+    &:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }
+}
+
+.completedItemCont {
+    position: relative;
+    padding: 0.75rem;
+    border: 1px solid rgba(161, 163, 171, 1);
+    border-radius: 0.875rem;
+    background: rgba(245, 248, 255, 1);
+
+    &:first-child {
+        margin-top: 1.5rem;
+    }
 
     &:not(:last-child) {
         margin-bottom: 0.5rem;
@@ -133,6 +160,13 @@
     top: 0.75rem;
     left: 0.75rem;
     stroke: #0225FF;
+}
+
+.completedIcon {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    stroke: #05A301;
 }
 
 
@@ -197,7 +231,7 @@
 }
 
 .completed {
-    padding: 1rem 1.5rem 1rem 1.5rem;
+    padding: 1rem 1.5rem 2.5rem 1.5rem;
     border-radius: 0.875rem;
     box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.04),
 
@@ -208,6 +242,12 @@
         0px 45px 18px 0px rgba(0, 0, 0, 0.01),
 
         0px 71px 20px 0px rgba(0, 0, 0, 0);
+}
+
+.completedTime {
+    margin-top: 0.5rem;
+    display: inline-block;
+    color: #747474;
 }
 
 .addButton {
@@ -232,11 +272,15 @@
 }
 
 .notStarted {
-    color: #F21E1E
+    color: #F21E1E;
 }
 
 .inProgress {
-    color: #0225FF
+    color: #0225FF;
+}
+
+.completedColor {
+    color: #05A301;
 }
 
 h3,
@@ -250,6 +294,10 @@ p {
 
 a {
     text-decoration: none;
+}
+
+ul {
+    margin: 0;
 }
 
 .status {

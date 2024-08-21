@@ -43,6 +43,24 @@
             "status": "In Progress",
             "createdDate": "2024/08/15",
             "imagePath": "/presentationTask.png"
+        },
+        {
+            "id": 4,
+            "description": "Take the dog to the park and bring treats as well.",
+            "title": "Walk the dog",
+            "priority": "Moderate",
+            "status": "Completed",
+            "createdDate": "2024/08/15",
+            "imagePath": "/WalkDog.png"
+        },
+        {
+            "id": 5,
+            "description": "Meet with the client and finalize requirements.",
+            "title": "Conduct meeting",
+            "priority": "Moderate",
+            "status": "Completed",
+            "createdDate": "2024/08/15",
+            "imagePath": "/ConductMeet.png"
         }
     ]
 }

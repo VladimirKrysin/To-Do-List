@@ -28,7 +28,4 @@ export const DonutChart = ({ chartLabel, payloadValue, statusColor }) => {
         />
         <Legend wrapperStyle={{ left: "50%", transform: "translateX(-50%)" }} content={renderLegend} payload={[{ value: payloadValue }]} />
     </div>
-
-
-
 }
