@@ -4,7 +4,7 @@ import SearchIcon from "../../assets/SearchICon.svg?react"
 import Notification from "../../assets/Notifications.svg?react"
 import Calendar from "../../assets/Calendar.svg?react";
 import DashboardLogo from "../../assets/Dashboard.svg?react";
-import AddTask from "../../assets/addTask.svg?react";
+import AddIcon from "../../assets/addTask.svg?react";
 import ToDoIcon from "../../assets/ToDoIcon.svg?react";
 import HandIcon from "../../assets/handWave.svg?react";
 import TaskStatusIcon from "../../assets/TaskStatusIcon.svg?react";
@@ -13,10 +13,11 @@ import { Task } from "../../ui/task";
 import { DonutChart } from "../../ui/donut-chart"
 import styles from "./dashboard.module.css"
 import TodayIcon from "../../assets/todayPointer.svg?react"
-import { Flex } from "@mantine/core";
+import { Button, Flex } from "@mantine/core";
 import { useEffect, useState } from "react";
 import "../../App.css"
 import { SectionHeader } from "../../ui/section-header";
+import { NewTask } from "../../ui/new-task";
 
 
 export const Dashboard = () => {
@@ -64,15 +65,17 @@ export const Dashboard = () => {
                     </section>
                     <Flex className={styles.todosContainer}>
                         <section className={styles.active}>
-                            <Flex className={styles.activeHeader} gap="18rem">
+                            <Flex className={styles.activeHeader} gap="17rem">
                                 <SectionHeader
                                     icon={<ToDoIcon />}
                                     headerText="To-Do"
                                 />
-                                <a href="#" >
-                                    <AddTask />
-                                    <span className={styles.addText}>Add task</span>
-                                </a>
+                                <Button
+                                    variant="filled"
+                                    color="#FF6767"
+                                    leftSection={<AddIcon fill='#FFFFFF' />}
+                                    radius="0.5rem"
+                                >Add task</Button>
                             </Flex>
                             <Flex className={styles.dateContainer} gap="0.75rem">
                                 <span className={styles.todayDate}> {new Intl.DateTimeFormat("en-GB", { month: "long", day: "2-digit" }).format(new Date())}</span>
@@ -168,6 +171,7 @@ export const Dashboard = () => {
                                     })}
                                 </ul>
                             </section>
+                            <NewTask />
                         </Flex>
                     </Flex>
                 </main >
