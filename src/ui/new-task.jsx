@@ -1,35 +1,20 @@
 import { Flex } from "@mantine/core";
-import { useForm, useController } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import styles from "../components/dashboard/dashboard.module.css"
-import { FormInputBase } from "./form-input-base.jsx";
-
+import { FormTextInputBase } from "./form-text-input-base.jsx";
+import { FormDateInputBase } from "./form-date-input-base.jsx";
+import { FormRadioInputBase } from "./form-radio-input-base.jsx";
+import { IconCalendarMonth } from '@tabler/icons-react';
 export const NewTask = () => {
-    const { control, register, handleSubmit, formState: { errors } } = useForm({ defaultValues: { title: "", date: "", priority: "", address: "" } });
+    const { control, register, handleSubmit, formState: { errors } } = useForm(
+        { defaultValues: { title: "", date: "", priority: "", description: "" } });
     const onSubmit = () => console.log('test');
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-                <label htmlFor="title">Title</label>
-                <input {...register("title", {
-                    required: {
-                        value: true,
-                        message: "Title required"
-                    }
-                })} id="title" type="text" />
-                <p className={styles.errorMessage}>{errors.title?.message}</p>
-
-            </div>
-            <div>
-                <label htmlFor="date">Date</label>
-                <input {...register("date", {
-                    required: {
-                        value: true,
-                        message: "Date required"
-                    }
-                })} id="date" type="date" />
-                <p className={styles.errorMessage}>{errors.date?.message}</p>
-            </div>
-            <Flex>
+            <FormTextInputBase control={control} name="title" rules={{ required: true }} label="Title" />
+            <FormDateInputBase control={control} name="date" rules={{ required: true }} label="Date" rightSection={<IconCalendarMonth size={16} />} />
+            <FormRadioInputBase control={control} name="extreme" rules={{ required: true }} label="Priority" firstLabel="Extreme" secondLabel="Moderate" thirdLabel="Low" />
+            {/* <Flex>
                 <div>
                     <label htmlFor="extreme">Extreme</label>
                     <input {...register("priority", {
@@ -57,10 +42,10 @@ export const NewTask = () => {
                         }
                     })} id="low" type="radio" />
                 </div>
-                <p className={styles.errorMessage}>{errors.priority?.message}</p>
-                <FormInputBase control={control} name="address" />
-            </Flex>
+                <p className={styles.errorMessage}>{errors.priority?.message}</p> */}
+            {/* <FormInputBase control={control} name="description" rules={{ required: true }} /> */}
+            {/* </Flex> */}
             <input type="submit" />
-        </form>
+        </form >
     );
 }

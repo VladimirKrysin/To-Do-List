@@ -1,7 +1,7 @@
 import { TextInput } from '@mantine/core';
 import { useController } from "react-hook-form";
 
-export const FormInputBase = ({ control, name }) => {
+export const FormTextInputBase = ({ control, name, rules, label }) => {
     const {
         field,
         fieldState: { invalid, isTouched, isDirty },
@@ -9,20 +9,17 @@ export const FormInputBase = ({ control, name }) => {
     } = useController({
         name,
         control,
-        rules: { required: true },
+        rules
     });
 
     return (
         <TextInput
             styles={{
-                input: {
-                    color: "#212427",
-                    borderColor: '#565454',
-                    fontSize: '0.75rem',
-                    fontFamily: 'Montserrat Variable'
-                }
+                root: { fontFamily: 'Montserrat Variable' },
+                label: { fontWeight: 600 }
             }}
-            size='md'
+            label={label}
+            size="sm"
             onChange={field.onChange}
             onBlur={field.onBlur}
             value={field.value}

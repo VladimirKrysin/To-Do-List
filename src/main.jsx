@@ -14,6 +14,7 @@ import { VitalTasks } from './components/vital-tasks.jsx';
 import '@fontsource-variable/montserrat';
 import "@mantine/core/styles.css";
 import '@mantine/charts/styles.css';
+import '@mantine/dates/styles.css';
 import { MantineProvider } from "@mantine/core";
 
 const router = createBrowserRouter([
