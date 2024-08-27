@@ -15,6 +15,8 @@ import styles from "./dashboard.module.css"
 import TodayIcon from "../../assets/todayPointer.svg?react"
 import { Button, Flex } from "@mantine/core";
 import { useEffect, useState } from "react";
+import { useDisclosure } from '@mantine/hooks';
+import { Modal } from '@mantine/core';
 import "../../App.css"
 import { SectionHeader } from "../../ui/section-header";
 import { NewTask } from "../../ui/new-task";
@@ -22,6 +24,7 @@ import { NewTask } from "../../ui/new-task";
 
 export const Dashboard = () => {
     const [tasks, setTasks] = useState([]);
+    const [opened, { open, close }] = useDisclosure(false);
 
     useEffect(() => {
         async function fetchTasks() {
@@ -70,11 +73,15 @@ export const Dashboard = () => {
                                     icon={<ToDoIcon />}
                                     headerText="To-Do"
                                 />
+                                <Modal opened={opened} onClose={close} title="Add New Task" centered>
+                                    <NewTask />
+                                </Modal>
                                 <Button
                                     variant="filled"
                                     color="#FF6767"
                                     leftSection={<AddIcon fill='#FFFFFF' />}
                                     radius="0.5rem"
+                                    onClick={open}
                                 >Add task</Button>
                             </Flex>
                             <Flex className={styles.dateContainer} gap="0.75rem">
@@ -171,7 +178,6 @@ export const Dashboard = () => {
                                     })}
                                 </ul>
                             </section>
-                            <NewTask />
                         </Flex>
                     </Flex>
                 </main >

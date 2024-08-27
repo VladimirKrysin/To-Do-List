@@ -309,3 +309,23 @@ ul {
     color: red;
     font-size: 0.75rem;
 }
+
+.extremePriorityIcon {
+    fill: #F21E1E;
+}
+
+.moderatePriorityIcon {
+    fill: #3ABEFF;
+}
+
+.lowPriorityIcon {
+    fill: #05A301;
+}
+
+.priorityTextColor {
+    color: #A1A3AB;
+}
+
+.label {
+    font-weight: 600 !important;
+}
