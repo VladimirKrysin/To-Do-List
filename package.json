@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@fontsource-variable/montserrat": "^5.0.19",
-    "@mantine/charts": "^7.12.1",
-    "@mantine/core": "^7.11.2",
-    "@mantine/dates": "^7.12.1",
+    "@mantine/charts": "^7.12.2",
+    "@mantine/core": "^7.12.2",
+    "@mantine/dates": "^7.12.2",
     "@tabler/icons-react": "^3.11.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",

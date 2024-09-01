@@ -4,7 +4,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { Root } from './components/root.jsx';
+import { Root } from './components/root/root.jsx';
 import { Login } from './components/login/login.jsx';
 import { Register } from './components/register/register.jsx';
 import { Dashboard } from './components/dashboard/dashboard.jsx';
@@ -21,19 +21,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/dashboard",
-    element: <Dashboard />,
     children: [
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
       {
         path: "tasks",
         element: <Tasks />,
@@ -47,7 +39,16 @@ const router = createBrowserRouter([
         element: <Info />
       },
     ]
-  }]);
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

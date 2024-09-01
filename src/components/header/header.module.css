@@ -1,0 +1,17 @@
+.header {
+    position: fixed;
+    padding: 0 5rem;
+    width: auto;
+    height: 6rem;
+    display: flex;
+    gap: 9rem;
+    align-items: center;
+    background-color: #F8F8F8;
+    z-index: 1;
+}
+
+.cont {
+    width: 25rem;
+    gap: 4rem;
+    margin-left: auto;
+}
