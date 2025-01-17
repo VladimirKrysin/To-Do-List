@@ -51,7 +51,16 @@ export const Dashboard = () => {
                                 headerText="To-Do"
                             />
                             <Modal
-                                opened={opened} onClose={close} title="Add New Task" centered>
+                                opened={opened} onClose={close} title="Add New Task" centered size="auto"
+                                styles={{
+                                    header: {
+                                        paddingTop: "1.5rem",
+                                        paddingLeft: "2.5rem",
+                                        paddingRight: "2rem",
+                                    }
+                                }}
+
+                            >
                                 <NewTask />
                             </Modal>
 

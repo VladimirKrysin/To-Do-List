@@ -15,7 +15,7 @@ export const FormTextInputBase = ({ control, name, rules, label }) => {
     return (
         <TextInput
             styles={{
-                root: { fontFamily: 'Montserrat Variable' },
+                root: { fontFamily: 'Montserrat Variable', marginBottom: "1rem" },
                 label: { fontWeight: 600 }
             }}
             label={label}

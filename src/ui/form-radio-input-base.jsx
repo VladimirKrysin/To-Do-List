@@ -9,6 +9,7 @@ export const FormRadioInputBase = ({ control, name, rules, label, firstLabel, se
         classNames={{
             label: styles.label
         }}
+        style={{ marginBottom: "1rem" }}
         label={label}
         onChange={field.onChange}
         onBlur={field.onBlur}
