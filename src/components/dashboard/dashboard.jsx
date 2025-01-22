@@ -32,8 +32,17 @@ export const Dashboard = () => {
         }
         fetchTasks()
     }, [])
-    const sortedTasks = tasks.toSorted((a, b) => new Date(b.createdDate) - new Date(a.createdDate))
-    const delayedTask = structuredClone(sortedTasks).find((element) => new Date(element.createdDate).setHours(0, 0, 0, 0) !== new Date().setHours(0, 0, 0, 0))
+    const delayedTask = tasks.find((element) => new Date(element.dueDate).setHours(0, 0, 0, 0) !== new Date().setHours(0, 0, 0, 0));
+    const formattedTasks = structuredClone(tasks).map((task) => {
+        return {
+            ...task,
+            dueDate: new Date(task.dueDate).toLocaleString("ru", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit"
+            })
+        }
+    })
     return (
         <>
             <main className={styles.mainWrapper}>
@@ -80,31 +89,31 @@ export const Dashboard = () => {
                             </Flex>
                         </Flex>
                         <ul className={styles.activeList}>
-                            {sortedTasks.filter((task) => task.status !== "Completed").map((task) => {
-                                if (task.id !== delayedTask.id || task.id === 1) {
+                            {formattedTasks.filter((task) => task.status !== "Completed").map((task, index) => {
+                                if (task._id.toString() !== delayedTask._id.toString() || index === 0) {
                                     return <Task
-                                        key={task.id}
+                                        key={task._id.toString()}
                                         description={task.description}
                                         title={task.title}
                                         priority={task.priority}
                                         status={task.status}
-                                        createdDate={task.createdDate}
+                                        dueDate={task.dueDate}
                                         imgPath={task.imagePath}
                                     />
                                 }
-                                return <>
-                                    <div class={styles.line}></div>
-                                    <Task
-                                        key={task.id}
-                                        description={task.description}
-                                        title={task.title}
-                                        priority={task.priority}
-                                        status={task.status}
-                                        createdDate={task.createdDate}
-                                        imgPath={task.imagePath}
-                                    />
-                                </>
-
+                                return (
+                                    <div key={task._id.toString()}>
+                                        <div className={styles.line}></div>
+                                        <Task
+                                            description={task.description}
+                                            title={task.title}
+                                            priority={task.priority}
+                                            status={task.status}
+                                            dueDate={task.dueDate}
+                                            imgPath={task.imagePath}
+                                        />
+                                    </div>
+                                )
                             })}
                         </ul>
                     </section>
@@ -138,31 +147,31 @@ export const Dashboard = () => {
                                 headerText="Completed Task"
                             />
                             <ul className={styles.activeList}>
-                                {sortedTasks.filter((task) => task.status === "Completed").map((task) => {
-                                    if (task.id !== delayedTask.id || task.id === 1) {
+                                {formattedTasks.filter((task) => task.status === "Completed").map((task, index) => {
+                                    if (task._id.toString() !== delayedTask._id.toString() || index === 0) {
                                         return <Task
-                                            key={task.id}
+                                            key={task._id.toString()}
                                             description={task.description}
                                             title={task.title}
                                             priority={task.priority}
                                             status={task.status}
-                                            createdDate={task.createdDate}
+                                            dueDate={task.dueDate}
                                             imgPath={task.imagePath}
                                         />
                                     }
-                                    return <>
-                                        <div class={styles.line}></div>
-                                        <Task
-                                            key={task.id}
-                                            description={task.description}
-                                            title={task.title}
-                                            priority={task.priority}
-                                            status={task.status}
-                                            createdDate={task.createdDate}
-                                            imgPath={task.imagePath}
-                                        />
-                                    </>
-
+                                    return (
+                                        <div key={task._id.toString()}>
+                                            <div className={styles.line}></div>
+                                            <Task
+                                                description={task.description}
+                                                title={task.title}
+                                                priority={task.priority}
+                                                status={task.status}
+                                                dueDate={task.dueDate}
+                                                imgPath={task.imagePath}
+                                            />
+                                        </div>
+                                    )
                                 })}
                             </ul>
                         </section>

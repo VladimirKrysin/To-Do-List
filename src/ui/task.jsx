@@ -4,7 +4,7 @@ import { Flex } from "@mantine/core";
 import clsx from "clsx";
 import styles from "../components/dashboard/dashboard.module.css"
 
-function TaskParams({ priority, status, createdDate }) {
+function TaskParams({ priority, status, dueDate }) {
     if (status === "Completed") {
         return <div className={styles.activeTextCont}>
             <span>Status: </span>
@@ -26,12 +26,12 @@ function TaskParams({ priority, status, createdDate }) {
                 [styles.notStarted]: status === "Not Started",
                 [styles.inProgress]: status === "In Progress"
             })}>{status}</span>
-        <span className={styles.createdDateText}>Created on: {createdDate}</span>
+        <span className={styles.createdDateText}>Срок: {dueDate}</span>
     </div>
 
 }
 
-export const Task = ({ description, title, priority, status, createdDate, imgPath }) => {
+export const Task = ({ description, title, priority, status, dueDate, imgPath }) => {
     return (
         <li className={clsx({
             [styles.activeItemCont]: status === "Not Started" || status === "In Progress",
@@ -56,7 +56,7 @@ export const Task = ({ description, title, priority, status, createdDate, imgPat
                 <TaskParams
                     priority={priority}
                     status={status}
-                    createdDate={createdDate}
+                    dueDate={dueDate}
                 />
             </article>
         </li >
