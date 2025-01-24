@@ -1,18 +1,9 @@
 import { Button } from '@mantine/core';
-import { useController } from 'react-hook-form';
 import classes from "../components/dashboard/dashboard.module.css"
-export const FormSubmitInputBase = ({ control, name }) => {
-    const {
-        field,
-        fieldState: { invalid, isTouched, isDirty },
-        formState: { errors }
-    } = useController({
-        name,
-        control,
-    });
-
+export const FormSubmitInputBase = () => {
     return (
         <Button
+            type="submit"
             variant="filled"
             color="#F24E1E"
             classNames={{

@@ -9,7 +9,7 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-export const FormUploadFileInputBase = ({ control, name }) => {
+export const FormUploadFileInputBase = ({ control, name, setUploadFilePath }) => {
     const {
         field,
         fieldState: { invalid, isTouched, isDirty },
@@ -26,7 +26,18 @@ export const FormUploadFileInputBase = ({ control, name }) => {
                 onupdatefiles={setFiles}
                 allowMultiple={true}
                 maxFiles={3}
-                server="/api"
+                server={{
+                    url: 'http://localhost:3000/files/upload',
+                    process: {
+                        onload: (response) => {
+                            const filePath = JSON.parse(response);
+                            console.log(filePath);
+                            setUploadFilePath(filePath);
+                            field.onChange(filePath)
+                        }
+                    },
+
+                }}
                 name="files"
                 labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
             />

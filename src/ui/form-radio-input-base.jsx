@@ -7,7 +7,7 @@ export const FormRadioInputBase = ({ control, name, rules, label, firstLabel, se
     const { field, fieldState, formState } = useController({ name, control, rules });
     return <Radio.Group
         classNames={{
-            label: styles.label
+            label: styles.label,
         }}
         style={{ marginBottom: "1rem" }}
         label={label}
