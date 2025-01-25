@@ -1,26 +1,25 @@
 import StatusIcon from "../assets/ActiveIcon.svg?react"
 import TaskMenuIcon from "../assets/taskMenuIcon.svg?react"
-import { Flex } from "@mantine/core";
 import clsx from "clsx";
 import styles from "../components/dashboard/dashboard.module.css"
 
 function TaskParams({ priority, status, dueDate }) {
     if (status === "Completed") {
         return <div className={styles.activeTextCont}>
-            <span>Status: </span>
+            <span>Статус: </span>
             <span className={styles.completedColor}>{status}</span><br />
             <span className={styles.completedTime}>Completed 2 days ago</span>
         </div>
     }
     return <div className={styles.activeTextCont}>
-        <span>Priority: </span>
+        <span>Приоритет: </span>
         <span
             className={clsx({
-                [styles.moderatePrior]: priority === "Moderate",
-                [styles.extremePrior]: priority === "Extreme"
+                [styles.moderatePrior]: priority === "Средний",
+                [styles.extremePrior]: priority === "Высокий"
             })}
         >{priority}</span>
-        <span>Status: </span>
+        <span>Статус: </span>
         <span
             className={clsx({
                 [styles.notStarted]: status === "Not Started",
@@ -49,10 +48,7 @@ export const Task = ({ description, title, priority, status, dueDate, imgPath })
                     <TaskMenuIcon />
                 </button>
                 <h3 title={title}><a className={styles.itemTitle} href="#">{title}</a></h3>
-                <Flex className={styles.activeDescCont} justify="center" align="center" gap="1rem">
-                    <p className={styles.itemDesc}>{description}</p>
-                    <img src={imgPath} alt="task photo" />
-                </Flex>
+                <p className={styles.itemDesc}>{description}</p>
                 <TaskParams
                     priority={priority}
                     status={status}

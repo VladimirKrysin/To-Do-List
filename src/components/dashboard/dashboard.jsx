@@ -60,13 +60,16 @@ export const Dashboard = () => {
                                 headerText="To-Do"
                             />
                             <Modal
-                                opened={opened} onClose={close} title="Add New Task" centered size="auto"
+                                opened={opened} onClose={close} title="Добавить задачу" centered size="auto"
                                 styles={{
                                     header: {
                                         paddingTop: "1.5rem",
                                         paddingLeft: "2.5rem",
                                         paddingRight: "2rem",
-                                    }
+                                    },
+                                    title: {
+                                        fontWeight: "600",
+                                    },
                                 }}
 
                             >
@@ -79,7 +82,7 @@ export const Dashboard = () => {
                                 leftSection={<AddIcon fill='#FFFFFF' />}
                                 radius="0.5rem"
                                 onClick={open}
-                            >Add task</Button>
+                            >Добавить задачу</Button>
                         </Flex>
                         <Flex className={styles.dateContainer} gap="0.75rem">
                             <span className={styles.todayDate}> {new Intl.DateTimeFormat("en-GB", { month: "long", day: "2-digit" }).format(new Date())}</span>

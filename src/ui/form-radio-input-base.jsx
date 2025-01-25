@@ -20,9 +20,9 @@ export const FormRadioInputBase = ({ control, name, rules, label, firstLabel, se
         <Group>
             <FormPriorityIcon
                 className={clsx({
-                    [styles.extremePriorityIcon]: firstLabel === "Extreme",
-                    [styles.moderatePriorityIcon]: firstLabel === "Moderate",
-                    [styles.lowPriorityIcon]: firstLabel === "Low"
+                    [styles.extremePriorityIcon]: firstLabel === "Высокий",
+                    [styles.moderatePriorityIcon]: firstLabel === "Средний",
+                    [styles.lowPriorityIcon]: firstLabel === "Низкий"
                 })}
             />
             <Radio
@@ -32,9 +32,9 @@ export const FormRadioInputBase = ({ control, name, rules, label, firstLabel, se
                 value={firstLabel} labelPosition="left" label={firstLabel} />
             <FormPriorityIcon
                 className={clsx({
-                    [styles.extremePriorityIcon]: secondLabel === "Extreme",
-                    [styles.moderatePriorityIcon]: secondLabel === "Moderate",
-                    [styles.lowPriorityIcon]: secondLabel === "Low"
+                    [styles.extremePriorityIcon]: secondLabel === "Высокий",
+                    [styles.moderatePriorityIcon]: secondLabel === "Средний",
+                    [styles.lowPriorityIcon]: secondLabel === "Низкий"
                 })
                 }
             />
@@ -44,9 +44,9 @@ export const FormRadioInputBase = ({ control, name, rules, label, firstLabel, se
                 }} value={secondLabel} labelPosition="left" label={secondLabel} />
             <FormPriorityIcon
                 className={clsx({
-                    [styles.extremePriorityIcon]: thirdLabel === "Extreme",
-                    [styles.moderatePriorityIcon]: thirdLabel === "Moderate",
-                    [styles.lowPriorityIcon]: thirdLabel === "Low"
+                    [styles.extremePriorityIcon]: thirdLabel === "Высокий",
+                    [styles.moderatePriorityIcon]: thirdLabel === "Средний",
+                    [styles.lowPriorityIcon]: thirdLabel === "Низкий"
                 })}
             />
             <Radio

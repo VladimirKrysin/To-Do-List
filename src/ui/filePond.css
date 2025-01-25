@@ -4,5 +4,13 @@
 }
 
 .filePondWrapper {
-    margin-top: 1rem;
+    margin-top: 0.875rem;
+}
+
+.filePondTitle {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+
 }

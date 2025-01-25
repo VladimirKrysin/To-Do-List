@@ -26,15 +26,21 @@ app.post('/files/upload', upload.single('files'), (req, res) => {
 });
 
 app.post('/tasks/add', async (req, res) => {
-    const newTask = await Task.create({
-        title: req.body.title,
-        dueDate: req.body.date,
-        priority: req.body.priority,
-        status: req.body.status,
-        description: req.body.taskDescription,
-        filepath: req.body.uploadFile
-    });
-    res.json({ message: "Task created successfully", task: newTask });
+    try {
+        const newTask = await Task.create({
+            title: req.body.title,
+            dueDate: req.body.date,
+            priority: req.body.priority,
+            status: req.body.status,
+            description: req.body.taskDescription,
+            filepath: req.body.uploadFile
+        });
+        res.json({ message: "Задача успешно добавлена!", task: newTask });
+    } catch (error) {
+        console.log(error);
+        res.json({ message: "Не удалось добавить задачу" });
+
+    }
 });
 
 app.listen(port, () => {

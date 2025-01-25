@@ -21,6 +21,7 @@ export const FormUploadFileInputBase = ({ control, name, setUploadFilePath }) =>
     const [files, setFiles] = useState([]);
     return (
         <div className="filePondWrapper">
+            <h2 className="filePondTitle">Вложение</h2>
             <FilePond
                 files={files}
                 onupdatefiles={setFiles}
@@ -39,7 +40,7 @@ export const FormUploadFileInputBase = ({ control, name, setUploadFilePath }) =>
 
                 }}
                 name="files"
-                labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+                labelIdle='Перетащите файл сюда или <span class="filepond--label-action">Выберите файл</span>'
             />
         </div>
     );

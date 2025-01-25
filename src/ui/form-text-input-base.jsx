@@ -1,15 +1,14 @@
 import { TextInput } from '@mantine/core';
 import { useController } from "react-hook-form";
 
-export const FormTextInputBase = ({ control, name, rules, label }) => {
+export const FormTextInputBase = ({ control, name, label }) => {
     const {
         field,
         fieldState: { invalid, isTouched, isDirty },
         formState: { errors }
     } = useController({
         name,
-        control,
-        rules
+        control
     });
 
     return (
