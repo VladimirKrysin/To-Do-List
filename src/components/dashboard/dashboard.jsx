@@ -54,7 +54,7 @@ export const Dashboard = () => {
                 </section>
                 <Flex className={styles.todosContainer}>
                     <section className={styles.active}>
-                        <Flex className={styles.activeHeader} gap="17rem">
+                        <Flex className={styles.activeHeader} gap="12.5rem">
                             <SectionHeader
                                 icon={<ToDoIcon />}
                                 headerText="To-Do"
@@ -144,7 +144,7 @@ export const Dashboard = () => {
                                 />
                             </Flex>
                         </section>
-                        <section className={styles.completed}>
+                        <section className={styles.completedCont}>
                             <SectionHeader
                                 icon={<CompletedTaskIcon />}
                                 headerText="Completed Task"

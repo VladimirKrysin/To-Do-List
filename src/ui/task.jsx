@@ -2,6 +2,7 @@ import StatusIcon from "../assets/ActiveIcon.svg?react"
 import TaskMenuIcon from "../assets/taskMenuIcon.svg?react"
 import clsx from "clsx";
 import styles from "../components/dashboard/dashboard.module.css"
+import { Center, Flex } from "@mantine/core";
 
 function TaskParams({ priority, status, dueDate }) {
     if (status === "Completed") {
@@ -32,9 +33,8 @@ function TaskParams({ priority, status, dueDate }) {
 
 export const Task = ({ description, title, priority, status, dueDate, imgPath }) => {
     return (
-        <li className={clsx({
-            [styles.activeItemCont]: status === "Not Started" || status === "In Progress",
-            [styles.completedItemCont]: status === "Completed"
+        <li className={clsx(styles.itemCont, {
+            [styles.completed]: status === "Completed",
         })}>
             <article>
                 <StatusIcon
