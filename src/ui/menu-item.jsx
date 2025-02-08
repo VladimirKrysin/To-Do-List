@@ -1,10 +1,10 @@
-import styles from "../../src/components/root/root.module.css"
-import { Flex } from "@mantine/core";
+import styles from "../../src/components/root/root.module.css";
 
-export const MenuItem = ({ icon, text }) =>
-    <li>
-        <Flex className={styles.dashboardLinkWrapper}>
-            {icon}
-            <span className={styles.dashboardText}>{text}</span>
-        </Flex>
-    </li>
+export const MenuItem = ({ icon, text, route }) => (
+  <li>
+    <a className={styles.dashboardLinkWrapper} href={route}>
+      {icon}
+      <span className={styles.dashboardText}>{text}</span>
+    </a>
+  </li>
+);

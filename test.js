@@ -1,23 +1,19 @@
-var removeDuplicates = function (nums) {
-    const numsObj = {}
-    for (const num of nums) {
-        numsObj[num] = (numsObj[num] || 0) + 1;
-    }
-    const k = nums.length;
-    for (let i = 0; i < k; i++) {
-        const elem = nums[i]
-        console.log(numsObj, elem)
-        if (numsObj[elem] > 1) {
-            nums[i] = 101;
-            numsObj[elem] -= 1;
-        }
-    }
-    nums.sort((a, b) => a - b)
-    return nums.reduce((acc, curr) => {
-        if (curr !== 101) {
-            acc++;
-        }
-        return acc
-    }, 0)
+var intersection = function(nums) {
+    const result = []
+    const setArray = [];
+    for (const elem of nums)
+        setArray.push(new Set(elem))
+    console.log(setArray);
+    
+    const intersectionSet = setArray.reduce((acc, currentSet) => {
+        console.log(acc);
+        
+        return acc.intersection(currentSet)
+    })
+
+    for (const elem of intersectionSet.values())
+        result.push(elem)
+    return result.sort((a,b) => a - b)
 };
-console.log(removeDuplicates([1, 1, 1, 1]))
+
+console.log(intersection([[3,1,2,4,5],[1,2,3,4],[3,4,5,6]]));

@@ -10,7 +10,7 @@ import { Register } from './components/register/register.jsx';
 import { Dashboard } from './components/dashboard/dashboard.jsx';
 import { Tasks } from './components/tasks.jsx';
 import { Info } from './components/info.jsx';
-import { VitalTasks } from './components/vital-tasks.jsx';
+import { VitalTasks } from './components/vitalTasks/vitalTasks.jsx';
 import '@fontsource-variable/montserrat';
 import "@mantine/core/styles.css";
 import '@mantine/charts/styles.css';
