@@ -1,21 +1,20 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import { Root } from './components/root/root.jsx';
-import { Login } from './components/login/login.jsx';
-import { Register } from './components/register/register.jsx';
-import { Dashboard } from './components/dashboard/dashboard.jsx';
-import { Tasks } from './components/tasks.jsx';
-import { Info } from './components/info.jsx';
-import { VitalTasks } from './components/vitalTasks/vitalTasks.jsx';
-import '@fontsource-variable/montserrat';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Root } from "./components/root/root.jsx";
+import { Login } from "./components/login/login.jsx";
+import { Register } from "./components/register/register.jsx";
+import { Dashboard } from "./components/dashboard/dashboard.jsx";
+import { Tasks } from "./components/tasks/tasks.jsx";
+import { Info } from "./components/info/info.jsx";
+import { VitalTasks } from "./components/vitalTasks/vitalTasks.jsx";
+import "@fontsource-variable/montserrat";
 import "@mantine/core/styles.css";
-import '@mantine/charts/styles.css';
-import '@mantine/dates/styles.css';
+import "@mantine/charts/styles.css";
+import "@mantine/dates/styles.css";
+import "@mantine/notifications/styles.css";
 import { MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 
 const router = createBrowserRouter([
   {
@@ -36,9 +35,9 @@ const router = createBrowserRouter([
       },
       {
         path: "info",
-        element: <Info />
+        element: <Info />,
       },
-    ]
+    ],
   },
   {
     path: "/login",
@@ -50,10 +49,11 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <MantineProvider>
+      <Notifications position="top-right" />
       <RouterProvider router={router} />
     </MantineProvider>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

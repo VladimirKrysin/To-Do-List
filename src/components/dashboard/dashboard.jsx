@@ -3,54 +3,37 @@ import ToDoIcon from "../../assets/ToDoIcon.svg?react";
 import HandIcon from "../../assets/handWave.svg?react";
 import TaskStatusIcon from "../../assets/TaskStatusIcon.svg?react";
 import CompletedTaskIcon from "../../assets/CompletedTaskIcon.svg?react";
-import { Task } from "../../ui/task";
 import { DonutChart } from "../../ui/donut-chart";
 import styles from "./dashboard.module.css";
 import TodayIcon from "../../assets/todayPointer.svg?react";
-import { Button, Flex } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { LoadingOverlay, Button, Flex } from "@mantine/core";
+import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
+import { useGetTask } from "../../hooks/useFetchTasks.js";
+import { formatTasks } from "../../utils/formatTasks.js";
+import { renderTasksList } from "../../utils/renderTasksList.jsx";
 import "../../App.css";
 import { SectionHeader } from "../../ui/section-header";
 import { NewTask } from "../../ui/new-task";
 
 export const Dashboard = () => {
-  const [tasks, setTasks] = useState([]);
   const [opened, { open, close }] = useDisclosure(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    async function fetchTasks() {
-      const response = await fetch("http://localhost:3000/tasks");
-
-      if (response.ok) {
-        const data = await response.json();
-        setTasks(data);
-      }
-    }
-    fetchTasks();
-  }, []);
+  const tasks = useGetTask();
   const delayedTask = tasks.find(
     (element) =>
       new Date(element.dueDate).setHours(0, 0, 0, 0) !==
       new Date().setHours(0, 0, 0, 0)
   );
-  const formattedTasks = structuredClone(tasks).map((task) => {
-    return {
-      ...task,
-      dueDate: new Date(task.dueDate).toLocaleString("ru", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      }),
-    };
-  });
+  const formattedTasks = formatTasks(tasks);
   return (
     <>
       <main className={styles.mainWrapper}>
         <section>
           <Flex align={"center"}>
-            <h1 className={styles.pageTitle}>Welcome back, грибок</h1>
+            <h1 className={styles.pageTitle}>Здравствуйте, </h1>
             <HandIcon />
           </Flex>
         </section>
@@ -58,6 +41,11 @@ export const Dashboard = () => {
           <section className={styles.active}>
             <Flex className={styles.activeHeader} gap="12.5rem">
               <SectionHeader icon={<ToDoIcon />} headerText="To-Do" />
+              <LoadingOverlay
+                visible={isLoading}
+                zIndex={1000}
+                overlayProps={{ radius: "sm", blur: 2 }}
+              />
               <Modal
                 opened={opened}
                 onClose={close}
@@ -75,7 +63,7 @@ export const Dashboard = () => {
                   },
                 }}
               >
-                <NewTask />
+                <NewTask setLoading={setIsLoading} close={close} />
               </Modal>
 
               <Button
@@ -104,37 +92,9 @@ export const Dashboard = () => {
             <ul className={styles.activeList}>
               {formattedTasks
                 .filter((task) => task.status !== "Completed")
-                .map((task, index) => {
-                  if (
-                    task._id.toString() !== delayedTask._id.toString() ||
-                    index === 0
-                  ) {
-                    return (
-                      <Task
-                        key={task._id.toString()}
-                        description={task.description}
-                        title={task.title}
-                        priority={task.priority}
-                        status={task.status}
-                        dueDate={task.dueDate}
-                        imgPath={task.imagePath}
-                      />
-                    );
-                  }
-                  return (
-                    <div key={task._id.toString()}>
-                      <div className={styles.line}></div>
-                      <Task
-                        description={task.description}
-                        title={task.title}
-                        priority={task.priority}
-                        status={task.status}
-                        dueDate={task.dueDate}
-                        imgPath={task.imagePath}
-                      />
-                    </div>
-                  );
-                })}
+                .map((task, index) =>
+                  renderTasksList(delayedTask, task, index)
+                )}
             </ul>
           </section>
           <Flex direction="column" gap="1rem">
@@ -169,37 +129,9 @@ export const Dashboard = () => {
               <ul className={styles.activeList}>
                 {formattedTasks
                   .filter((task) => task.status === "Completed")
-                  .map((task, index) => {
-                    if (
-                      task._id.toString() !== delayedTask._id.toString() ||
-                      index === 0
-                    ) {
-                      return (
-                        <Task
-                          key={task._id.toString()}
-                          description={task.description}
-                          title={task.title}
-                          priority={task.priority}
-                          status={task.status}
-                          dueDate={task.dueDate}
-                          imgPath={task.imagePath}
-                        />
-                      );
-                    }
-                    return (
-                      <div key={task._id.toString()}>
-                        <div className={styles.line}></div>
-                        <Task
-                          description={task.description}
-                          title={task.title}
-                          priority={task.priority}
-                          status={task.status}
-                          dueDate={task.dueDate}
-                          imgPath={task.imagePath}
-                        />
-                      </div>
-                    );
-                  })}
+                  .map((task, index) =>
+                    renderTasksList(delayedTask, task, index)
+                  )}
               </ul>
             </section>
           </Flex>
