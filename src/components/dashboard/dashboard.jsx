@@ -10,9 +10,10 @@ import { LoadingOverlay, Button, Flex } from "@mantine/core";
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
-import { useGetTask } from "../../hooks/useFetchTasks.js";
+import { useGetTasks } from "../../hooks/useGetTasks.js";
 import { formatTasks } from "../../utils/formatTasks.js";
 import { renderTasksList } from "../../utils/renderTasksList.jsx";
+import { getDelayedTask } from "../../utils/getDelayedTask.js";
 import "../../App.css";
 import { SectionHeader } from "../../ui/section-header";
 import { NewTask } from "../../ui/new-task";
@@ -21,12 +22,8 @@ export const Dashboard = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const tasks = useGetTask();
-  const delayedTask = tasks.find(
-    (element) =>
-      new Date(element.dueDate).setHours(0, 0, 0, 0) !==
-      new Date().setHours(0, 0, 0, 0)
-  );
+  const tasks = useGetTasks();
+  const delayedTask = getDelayedTask(tasks);
   const formattedTasks = formatTasks(tasks);
   return (
     <>
@@ -89,11 +86,11 @@ export const Dashboard = () => {
                 <span className={styles.todayText}>Today</span>
               </Flex>
             </Flex>
-            <ul className={styles.activeList}>
+            <ul className={styles.tasksList}>
               {formattedTasks
                 .filter((task) => task.status !== "Completed")
                 .map((task, index) =>
-                  renderTasksList(delayedTask, task, index)
+                  renderTasksList(delayedTask, task, index, "dashboard")
                 )}
             </ul>
           </section>
@@ -126,11 +123,11 @@ export const Dashboard = () => {
                 icon={<CompletedTaskIcon />}
                 headerText="Completed Task"
               />
-              <ul className={styles.activeList}>
+              <ul className={styles.tasksList}>
                 {formattedTasks
                   .filter((task) => task.status === "Completed")
                   .map((task, index) =>
-                    renderTasksList(delayedTask, task, index)
+                    renderTasksList(delayedTask, task, index, "dashboard")
                   )}
               </ul>
             </section>

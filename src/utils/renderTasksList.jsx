@@ -1,7 +1,12 @@
 import { Task } from "../ui/task.jsx";
 
-export const renderTasksList = (delayedTask, task, index) => {
-  if (task._id.toString() !== delayedTask._id.toString() || index === 0) {
+export const renderTasksList = (delayedTask, task, index, page) => {
+  if (
+    task._id.toString() !== delayedTask._id.toString() ||
+    index === 0 ||
+    page !== "dashboard" ||
+    task.status === "completed"
+  ) {
     return (
       <Task
         key={task._id.toString()}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useGetTask() {
+export function useGetTasks() {
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
     async function fetchTasks() {

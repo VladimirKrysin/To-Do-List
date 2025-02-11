@@ -23,8 +23,8 @@
     
     }
     
-.activeList {
-        margin-top: 1rem;
-        padding-left: 0.5rem;
-        list-style: none;
- }
+ .tasksList {
+    margin-top: 1rem;
+    padding-left: 0.5rem;
+    list-style: none;
+}

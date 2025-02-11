@@ -18,7 +18,7 @@ export const Root = () => {
       link: "dashboard",
     },
     {
-      text: "Срочные задачи",
+      text: "Важные задачи",
       icon: <SVGIcon name="vital" />,
       link: "vital-tasks",
     },
