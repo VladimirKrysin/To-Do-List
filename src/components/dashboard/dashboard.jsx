@@ -11,9 +11,9 @@ import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
 import { useGetTasks } from "../../hooks/useGetTasks.js";
-import { formatTasks } from "../../utils/formatTasks.js";
 import { renderTasksList } from "../../utils/renderTasksList.jsx";
 import { getDelayedTask } from "../../utils/getDelayedTask.js";
+import { isDateDiffIn3Days } from "../../utils/isDateDiffIn3Days.js";
 import "../../App.css";
 import { SectionHeader } from "../../ui/section-header";
 import { NewTask } from "../../ui/new-task";
@@ -24,7 +24,6 @@ export const Dashboard = () => {
 
   const tasks = useGetTasks();
   const delayedTask = getDelayedTask(tasks);
-  const formattedTasks = formatTasks(tasks);
   return (
     <>
       <main className={styles.mainWrapper}>
@@ -37,7 +36,11 @@ export const Dashboard = () => {
         <Flex className={styles.todosContainer}>
           <section className={styles.active}>
             <Flex className={styles.activeHeader} gap="12.5rem">
-              <SectionHeader icon={<ToDoIcon />} headerText="To-Do" />
+              <SectionHeader
+                icon={<ToDoIcon />}
+                headerText="To-Do"
+                page="dashboard"
+              />
               <LoadingOverlay
                 visible={isLoading}
                 zIndex={1000}
@@ -87,8 +90,17 @@ export const Dashboard = () => {
               </Flex>
             </Flex>
             <ul className={styles.tasksList}>
-              {formattedTasks
-                .filter((task) => task.status !== "Completed")
+              {tasks
+                .filter(
+                  (task) =>
+                    task.status !== "Completed" &&
+                    isDateDiffIn3Days(
+                      new Date(new Date().setHours(0, 0, 0, 0)),
+                      new Date(new Date(task.dueDate).setHours(0, 0, 0, 0))
+                    )
+                )
+                .slice(0, 5)
+                .toSorted((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
                 .map((task, index) =>
                   renderTasksList(delayedTask, task, index, "dashboard")
                 )}
@@ -99,6 +111,7 @@ export const Dashboard = () => {
               <SectionHeader
                 icon={<TaskStatusIcon />}
                 headerText="Task status"
+                page="dashboard"
               />
               <Flex className={styles.chartsContainer} gap="2.5rem">
                 <DonutChart
@@ -122,9 +135,10 @@ export const Dashboard = () => {
               <SectionHeader
                 icon={<CompletedTaskIcon />}
                 headerText="Completed Task"
+                page="dashboard"
               />
               <ul className={styles.tasksList}>
-                {formattedTasks
+                {tasks
                   .filter((task) => task.status === "Completed")
                   .map((task, index) =>
                     renderTasksList(delayedTask, task, index, "dashboard")

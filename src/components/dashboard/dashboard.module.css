@@ -76,6 +76,22 @@
     color: rgba(255, 103, 103, 1);
 }
 
+.headerColor {
+    position: relative;
+    color: #000000;
+}
+
+.headerColor::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1.5rem; 
+    width: 55%; 
+    height: 3px; 
+    background-color: #F24E1E; 
+}
+
+
 .tasksList {
     margin-top: 1rem;
     padding-left: 0.5rem;
@@ -255,9 +271,27 @@ ul {
 }
 
 .createdDateText {
-    margin-left: 1.5rem;
     color: #A1A3AB;
+    
 }
+
+.dueDateCont {
+    margin-top: 0.5rem;
+}
+
+.overDueDate {
+    width: fit-content;
+    background-color:#ca3521 ;
+    color: #ffffff;
+}
+.iconCont {
+    background-color: #ca3521;
+}
+.overDueDateText {
+    padding: 0.25rem;
+    color: #ffffff;
+}
+
 
 .line {
     margin-top: 1.75rem;

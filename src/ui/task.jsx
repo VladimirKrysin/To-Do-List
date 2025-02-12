@@ -2,9 +2,12 @@ import StatusIcon from "../assets/ActiveIcon.svg?react";
 import TaskMenuIcon from "../assets/taskMenuIcon.svg?react";
 import clsx from "clsx";
 import styles from "../components/dashboard/dashboard.module.css";
-import { Center, Flex } from "@mantine/core";
-
+import { formatDueDate } from "../utils/formatTasks";
+import { isOverDue } from "../utils/isOverDue";
+import SVGIcon from "./Icon-base";
 function TaskParams({ priority, status, dueDate }) {
+  const overDue = isOverDue(dueDate);
+  const formattedDueDate = formatDueDate(dueDate);
   if (status === "Completed") {
     return (
       <div className={styles.activeTextCont}>
@@ -35,7 +38,27 @@ function TaskParams({ priority, status, dueDate }) {
       >
         {status}
       </span>
-      <span className={styles.createdDateText}>Срок: {dueDate}</span>
+      <div
+        className={clsx(styles.dueDateCont, { [styles.overDueDate]: overDue })}
+      >
+        {overDue && (
+          <SVGIcon
+            name="clock"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-clock"
+          />
+        )}
+        <span
+          className={clsx(styles.createdDateText, {
+            [styles.overDueDateText]: overDue,
+          })}
+        >
+          Срок: {formattedDueDate}
+        </span>
+      </div>
     </div>
   );
 }
