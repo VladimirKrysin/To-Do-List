@@ -8,7 +8,7 @@ const taskSchema = new Schema({
     priority: String,
     status: String,
     description: String,
-    filepath: String
+    filepath: [String]
 })
 const Task = mongoose.model('Task', taskSchema);
 

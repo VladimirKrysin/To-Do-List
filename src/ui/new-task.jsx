@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Alert, Flex } from "@mantine/core";
 import { IconCheck } from "@tabler/icons-react";
 import { IconCircleX } from "@tabler/icons-react";
 import styles from "../components/dashboard/dashboard.module.css";
@@ -27,6 +26,11 @@ export const NewTask = ({ setLoading, close }) => {
 
   const iconSuccess = <IconCheck />;
   const iconError = <IconCircleX />;
+
+  const handleFileUpload = (newPath) => {
+    setUploadFilePath((prevPath) => [...prevPath, newPath]);
+  };
+
   const onSubmit = async (data) => {
     setLoading(true);
 
@@ -36,37 +40,50 @@ export const NewTask = ({ setLoading, close }) => {
     };
     console.log(postData);
 
-    const response = await fetch("http://localhost:3000/tasks/add", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    setTimeout(async () => {
-      setLoading(false);
-      if (response.ok) {
-        const responseResult = await response.json();
+    try {
+      const response = await fetch("http://localhost:3000/tasks/add", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(postData),
+      });
+
+      const responseResult = await response.json();
+
+      setTimeout(() => {
+        setLoading(false);
+
+        if (response.ok) {
+          showNotification({
+            message: responseResult.message,
+            color: "green",
+            icon: iconSuccess,
+          });
+          close();
+        } else {
+          showNotification({
+            message: responseResult.message,
+            color: "red",
+            icon: iconError,
+          });
+        }
+      }, 1000);
+    } catch (error) {
+      console.error("Ошибка при отправке данных:", error);
+
+      setTimeout(() => {
+        setLoading(false);
         showNotification({
-          message: responseResult.message,
-          color: "green",
-          icon: iconSuccess,
-        });
-        close();
-      } else {
-        const responseResult = await response.json();
-        showNotification({
-          message: responseResult.message,
+          message: "Произошла ошибка при отправке данных.",
           color: "red",
           icon: iconError,
         });
-      }
-    }, 1000);
+      }, 1000);
+    }
   };
 
-  const [uploadFilePath, setUploadFilePath] = useState("");
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [uploadFilePath, setUploadFilePath] = useState([]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -95,34 +112,10 @@ export const NewTask = ({ setLoading, close }) => {
         <FormUploadFileInputBase
           control={control}
           name="uploadFile"
-          setUploadFilePath={(filePath) => setUploadFilePath(filePath)}
+          setUploadFilePath={handleFileUpload}
         />
       </div>
       <FormSubmitInputBase />
-      {successMessage && (
-        <Alert
-          styles={{
-            root: { marginTop: "1rem" },
-          }}
-          variant="light"
-          color="green"
-          icon={iconSuccess}
-        >
-          {successMessage}
-        </Alert>
-      )}
-      {errorMessage && (
-        <Alert
-          styles={{
-            root: { marginTop: "1rem" },
-          }}
-          variant="light"
-          color="red"
-          icon={iconError}
-        >
-          {errorMessage}
-        </Alert>
-      )}
     </form>
   );
 };

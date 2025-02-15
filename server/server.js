@@ -4,10 +4,21 @@ import Task from '../database/database.js';
 import multer from 'multer';
 import InitializeDB from '../database/initializeDB.js';
 
-const upload = multer({ dest: "uploads/" })
 
 const app = express()
 const port = 3000;
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/'); 
+    },
+    filename: (req, file, cb) => {
+    file.originalname = Buffer.from(file.originalname, 'latin1').toString('utf8')
+    cb(null, file.originalname + '-' + Date.now());
+    },
+  });
+  
+  const upload = multer({ storage: storage });
 
 // добавление тестовых данных в бд
 // InitializeDB();
@@ -21,8 +32,8 @@ app.get('/tasks', async (req, res) => {
 });
 
 app.post('/files/upload', upload.single('files'), (req, res) => {
-    res.json(req.file.path);
-
+    const filePath = req.file.path;
+    res.json(filePath);
 });
 
 app.post('/tasks/add', async (req, res) => {

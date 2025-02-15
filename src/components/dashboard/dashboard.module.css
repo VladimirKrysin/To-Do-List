@@ -277,9 +277,14 @@ ul {
 
 .dueDateCont {
     margin-top: 0.5rem;
+    padding: 0.2rem;
 }
 
 .overDueDate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.1rem;
     width: fit-content;
     background-color:#ca3521 ;
     color: #ffffff;
@@ -288,7 +293,6 @@ ul {
     background-color: #ca3521;
 }
 .overDueDateText {
-    padding: 0.25rem;
     color: #ffffff;
 }
 

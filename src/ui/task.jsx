@@ -45,10 +45,10 @@ function TaskParams({ priority, status, dueDate }) {
           <SVGIcon
             name="clock"
             stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-clock"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="icon icon-tabler icons-tabler-outline icon-tabler-clock"
           />
         )}
         <span
