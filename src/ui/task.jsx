@@ -63,39 +63,26 @@ function TaskParams({ priority, status, dueDate }) {
   );
 }
 
-export const Task = ({
-  description,
-  title,
-  priority,
-  status,
-  dueDate,
-  imgPath,
-}) => {
+export const Task = ({ description, title, priority, status, dueDate }) => {
   return (
-    <li
-      className={clsx(styles.itemCont, {
-        [styles.completed]: status === "Completed",
-      })}
-    >
-      <article>
-        <StatusIcon
-          className={clsx({
-            [styles.notStartedIcon]: status === "Not Started",
-            [styles.startedIcon]: status === "In Progress",
-            [styles.completedIcon]: status === "Completed",
-          })}
-        />
-        <button className={styles.activeMenu}>
-          <TaskMenuIcon />
-        </button>
-        <h3 title={title}>
-          <a className={styles.itemTitle} href="#">
-            {title}
-          </a>
-        </h3>
-        <p className={styles.itemDesc}>{description}</p>
-        <TaskParams priority={priority} status={status} dueDate={dueDate} />
-      </article>
-    </li>
+    <article>
+      <StatusIcon
+        className={clsx({
+          [styles.notStartedIcon]: status === "Not Started",
+          [styles.startedIcon]: status === "In Progress",
+          [styles.completedIcon]: status === "Completed",
+        })}
+      />
+      <button className={styles.activeMenu}>
+        <TaskMenuIcon />
+      </button>
+      <h3 title={title}>
+        <a className={styles.itemTitle} href="#">
+          {title}
+        </a>
+      </h3>
+      <p className={styles.itemDesc}>{description}</p>
+      <TaskParams priority={priority} status={status} dueDate={dueDate} />
+    </article>
   );
 };
