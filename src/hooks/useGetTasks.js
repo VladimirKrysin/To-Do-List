@@ -11,6 +11,7 @@ export function useGetTasks() {
         setTasks(data);
       }
     }
+    
     fetchTasks();
   }, []);
 
