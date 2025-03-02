@@ -1,19 +1,67 @@
-var intersection = function(nums) {
-    const result = []
-    const setArray = [];
-    for (const elem of nums)
-        setArray.push(new Set(elem))
-    console.log(setArray);
-    
-    const intersectionSet = setArray.reduce((acc, currentSet) => {
-        console.log(acc);
-        
-        return acc.intersection(currentSet)
-    })
+/**
+ * @param {string} word
+ * @return {number}
+ */
+var addMinimum = function(word) {
+    const arr = word.split("")
+    let k = 0;
+    while(true) {
+        let counter = 0;
+        for (let i=0; i < arr.length ; i++) {
+            if(arr[i] === "a" && arr[i+1] !== "b") {
+                arr.splice(i+1,0,"b");
+                counter++;
+                    k++;
+                    break;
+            }
+            if(arr[i] === "b") {
+                if (i === 0) {
+                    arr.splice(i,0,"a");
+                    counter++;
+                    k++;
+                    break;
+                }
+                if(arr[i-1] !== "a") {
+                    arr.splice(i-1,0,"a");
+                    counter++;
+                    k++;
+                    break;
+                } 
+                if(arr[i+1] !== "c") {
+                    arr.splice(i+1,0,"c");
+                    counter++;
+                    k++;
+                    break;
+                } 
+            }
 
-    for (const elem of intersectionSet.values())
-        result.push(elem)
-    return result.sort((a,b) => a - b)
+             if(arr[i] === "c") {
+                if (i === 0) {
+                    arr.splice(i,0,"b");
+                    counter++;
+                    k++;
+                    break;
+                }
+                if( arr[i-1] && arr[i-1] !== "b") {
+                    arr.splice(i-1,0,"b");
+                    counter++;
+                    k++;
+                    break;
+                } 
+                if(arr[i+1] && arr[i+1] !== "a") {
+                    arr.splice(i+1,0,"a");
+                    counter++;
+                    k++;
+                    break;
+                } 
+            }
+        }
+        if (counter === 0) {
+            break;
+        }
+    }
+
+    return k
 };
 
-console.log(intersection([[3,1,2,4,5],[1,2,3,4],[3,4,5,6]]));
+console.log(addMinimum("b"))

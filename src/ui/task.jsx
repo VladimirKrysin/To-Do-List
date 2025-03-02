@@ -46,6 +46,7 @@ function TaskParams({ priority, status, dueDate }) {
             name="clock"
             stroke="currentColor"
             strokeWidth="2"
+            size={16}
             strokeLinecap="round"
             strokeLinejoin="round"
             className="icon icon-tabler icons-tabler-outline icon-tabler-clock"

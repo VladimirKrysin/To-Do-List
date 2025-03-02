@@ -15,6 +15,7 @@ import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
+import AppKanban from "./components/adminBoard/AppKanban.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "info",
         element: <Info />,
+      },
+      {
+        path: "adminBoard",
+        element: <AppKanban />,
       },
     ],
   },

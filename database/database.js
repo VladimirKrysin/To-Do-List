@@ -6,7 +6,7 @@ const taskSchema = new Schema({
     title: String,
     dueDate: Date,
     priority: String,
-    status: String,
+    columnId: Number,
     description: String,
     filepath: [String]
 })

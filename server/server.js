@@ -42,7 +42,8 @@ app.post('/tasks/add', async (req, res) => {
             title: req.body.title,
             dueDate: req.body.date,
             priority: req.body.priority,
-            status: req.body.status,
+            // status: req.body.status,
+            columnId: req.body.columnId,
             description: req.body.taskDescription,
             filepath: req.body.uploadFile
         });
@@ -52,6 +53,34 @@ app.post('/tasks/add', async (req, res) => {
         res.json({ message: "Не удалось добавить задачу" });
 
     }
+});
+
+app.patch('/tasks/update/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const task = await Task.findById(id);
+    if (!task) {
+      return res.status(404).json({ message: "Задача не найдена" });
+    }
+
+    task.title = req.body.title || task.title;
+    task.dueDate = req.body.date || task.dueDate;
+    task.priority = req.body.priority || task.priority;
+    task.columnId = req.body.columnId || task.columnId;
+    task.description = req.body.taskDescription || task.description;
+
+    if (req.body.uploadFile) {
+      const newFiles = req.body.uploadFile.filter(file => !task.filepath.includes(file));
+      task.filepath = [...task.filepath, ...newFiles];
+    }
+
+    await task.save();
+
+    res.json({ message: "Задача обновлена!", task });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Не удалось обновить задачу" });
+  }
 });
 
 app.listen(port, () => {

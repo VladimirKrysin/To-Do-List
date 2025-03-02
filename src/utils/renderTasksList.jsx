@@ -1,22 +1,10 @@
 import { Task } from "../ui/task.jsx";
 import clsx from "clsx";
 import styles from "../components/dashboard/dashboard.module.css";
-export const renderTasksList = (
-  delayedTask,
-  task,
-  index,
-  setSelectedTask,
-  page
-) => {
+export const renderTasksList = (task, setSelectedTask) => {
   const handleClick = () => {
     setSelectedTask(task);
   };
-
-  const isDelayed =
-    task._id.toString() === delayedTask._id.toString() &&
-    index !== 0 &&
-    page === "dashboard" &&
-    task.status !== "completed";
 
   return (
     <li
@@ -26,7 +14,6 @@ export const renderTasksList = (
       })}
       onClick={handleClick}
     >
-      {isDelayed && <div className={styles.line}></div>}
       <Task
         description={task.description}
         title={task.title}

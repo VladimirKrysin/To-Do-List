@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import DashboardLogo from "../../assets/Dashboard.svg?react";
 import SVGIcon from "../../ui/Icon-base.jsx";
@@ -11,7 +11,7 @@ export const Root = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const menu = [
+  const menuItems = [
     {
       text: "Дашборд",
       icon: <SVGIcon name="dashboard" />,
@@ -32,10 +32,21 @@ export const Root = () => {
       icon: <SVGIcon name="settings" />,
       link: "info",
     },
+    {
+      text: "Панель управления",
+      icon: <SVGIcon name="dashboard" />,
+      link: "adminBoard",
+    },
   ];
+
+  const [menu, setMenu] = useState(menuItems);
 
   useEffect(() => {
     if (location.pathname === "/") navigate("dashboard");
+    if (location.pathname === "/adminBoard") {
+      const newMenu = menuItems.filter((item) => item.link === "adminBoard");
+      setMenu(newMenu);
+    }
   }, [location.pathname]);
 
   return (

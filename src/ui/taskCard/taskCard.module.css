@@ -1,0 +1,63 @@
+.taskCont {
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.taskTitle {
+    margin: 0;
+}
+
+.priorityCont {
+    gap: 0.25rem;
+}
+
+.statusCont {
+    gap: 0.25rem;
+}
+
+.extremePrior {
+    color: #F21E1E;
+    margin-right: 0.75rem;
+}
+
+.notStarted {
+    color: #F21E1E;
+}
+
+.inProgress {
+    color: #0225FF;
+}
+
+.dueDateCont {
+    margin-top: 0.5rem;
+    padding: 0.2rem;
+}
+
+.createdDateText {
+    color: #A1A3AB;
+    
+}
+
+.overDueDate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.1rem;
+    width: fit-content;
+    background-color:#ca3521 ;
+    color: #ffffff;
+}
+
+.overDueDateText {
+    color: #ffffff;
+}
+
+.taskContent {
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.descCont {
+    flex-direction: column;
+    gap: 1rem;
+}

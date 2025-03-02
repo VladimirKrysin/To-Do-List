@@ -1,0 +1,164 @@
+
+
+.pageCont {
+    height: auto;
+    margin-left: 16rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-bottom: 4rem;
+}
+
+.pageTitle {
+    font-size: 1.5rem;
+}
+
+.kanbanWrapper {
+    display: flex;
+    height: 100%;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    gap: 1rem;
+    background: #F5F8FF;
+}
+
+.addButton {
+    margin-top: 140px;
+    display: flex;
+    gap: 2px;
+    padding: 4px;
+    height: 60px;
+    width: 350px;
+    min-width: 350px;
+    cursor: pointer;
+    background-color: white;
+    border: 2px;
+    color: black;
+    border-color: black;
+}
+
+.columnWrapper {
+    height: 100%;
+    display: flex;
+    gap: 1rem;
+}
+
+.column {
+    display: flex;
+    height: 100%;
+    background-color: black;
+    
+}
+
+.columnContent {
+    display: flex;
+    flex-direction: column;
+    width: 24rem;
+    max-height: 100%;
+
+}
+
+.columnsList {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    gap: 0.5rem;
+}
+
+.draggingColumn {
+    display: flex;
+    width: 24rem;
+    flex-direction: column;
+    background-color: black;
+    opacity: 0.4;
+}
+
+.columContent {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-grow: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.columTitle{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    color: white;
+    height: 60px;
+    cursor: grab;
+    padding: 8px;
+}
+
+.addTaskButton {
+    padding: 8px;
+    gap: 2px;
+    background-color: aqua;
+}
+
+.taskCard {
+    position: relative;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    height: 100px;
+    color: black;
+    background-color: white;
+    cursor: grab;
+}
+
+.editCont {
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    height: 100px;
+    color: black;
+    background-color: white;
+    
+}
+
+.editTaskCard {
+    height: 90%;
+}
+
+.draggingTaskCard {
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    height: 100px;
+    color: black;
+    background-color: white;
+    cursor: grab;
+    opacity: 0.3;
+}
+
+.deleteTaskButton {
+    position: absolute;
+    right: 1rem;
+    top: 2.5rem;
+    background: none;
+    border: none;
+    opacity: 0.6;
+}
+
+.deleteTaskButton:hover {
+    opacity: 1;
+}
+
+.deleteColumnButton {
+    stroke: gray;
+    background: none;
+    border: none;
+    opacity: 0.6;
+
+}
+
+.deleteColumnButton:hover {
+    stroke: white;
+    opacity: 1;
+}
+

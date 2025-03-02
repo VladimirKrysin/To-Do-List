@@ -12,7 +12,6 @@ import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
 import { useGetTasks } from "../../hooks/useGetTasks.js";
 import { renderTasksList } from "../../utils/renderTasksList.jsx";
-import { getDelayedTask } from "../../utils/getDelayedTask.js";
 import { isDateDiffIn3Days } from "../../utils/isDateDiffIn3Days.js";
 import "../../App.css";
 import { SectionHeader } from "../../ui/section-header";
@@ -23,7 +22,6 @@ export const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const tasks = useGetTasks();
-  const delayedTask = getDelayedTask(tasks);
   return (
     <>
       <main className={styles.mainWrapper}>
@@ -102,7 +100,7 @@ export const Dashboard = () => {
                 .slice(0, 5)
                 .toSorted((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
                 .map((task, index) =>
-                  renderTasksList(delayedTask, task, index, "dashboard")
+                  renderTasksList(task, index, "dashboard")
                 )}
             </ul>
           </section>
@@ -141,7 +139,7 @@ export const Dashboard = () => {
                 {tasks
                   .filter((task) => task.status === "Completed")
                   .map((task, index) =>
-                    renderTasksList(delayedTask, task, index, "dashboard")
+                    renderTasksList(task, index, "dashboard")
                   )}
               </ul>
             </section>

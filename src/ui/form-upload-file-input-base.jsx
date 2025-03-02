@@ -35,11 +35,11 @@ export const FormUploadFileInputBase = ({
           process: {
             url: "http://localhost:3000/files/upload",
             onload: (response) => {
-              const uploadedPaths = JSON.parse(response); // Пути к загруженным файлам
+              const uploadedPaths = JSON.parse(response);
               console.log(uploadedPaths);
 
-              setUploadFilePath(uploadedPaths); // Передача путей во внешний компонент
-              field.onChange(uploadedPaths); // Передача значений в Rea
+              setUploadFilePath(uploadedPaths);
+              field.onChange(uploadedPaths);
             },
           },
         }}
