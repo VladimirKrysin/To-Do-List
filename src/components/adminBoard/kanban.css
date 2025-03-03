@@ -49,6 +49,10 @@
     
 }
 
+.column.dragging {
+    background-color: black;
+    opacity: 0.4;
+}
 .columnContent {
     display: flex;
     flex-direction: column;
@@ -60,7 +64,7 @@
 .columnsList {
     display: flex;
     margin: 0;
-    padding: 0;
+    padding: 0; 
     height: 100%;
     gap: 0.5rem;
 }
@@ -69,8 +73,9 @@
     display: flex;
     width: 24rem;
     flex-direction: column;
-    background-color: black;
-    opacity: 0.4;
+    background-color: red;
+    opacity: 0;
+
 }
 
 .columContent {

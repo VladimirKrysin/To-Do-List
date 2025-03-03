@@ -38,14 +38,14 @@ export default function ColumnContainer({
     transform: CSS.Transform.toString(transform),
   };
 
-  if (isDragging) {
-    return (
-      <div ref={setNodeRef} style={style} className="draggingColumn"></div>
-    );
-  }
+  // if (isDragging) {
+  //   return (
+  //     <div ref={setNodeRef} style={style} className="draggingColumn"></div>
+  //   );
+  // }
   return (
-    <li ref={setNodeRef} style={style} className="column">
-      <div className="columnContent">
+    <li ref={setNodeRef} style={style} className={`column ${isDragging ? 'dragging' : ''}`}>
+      <div className={`columnContent ${isDragging ? 'draggingColumn' : ''}`}>
         <div
           {...attributes}
           {...listeners}
