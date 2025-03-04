@@ -1,9 +1,9 @@
 import express from 'express'
 import cors from 'cors';
-import Task from '../database/database.js';
+import { Column } from '../database/database.js';
 import multer from 'multer';
 import InitializeDB from '../database/initializeDB.js';
-
+import { login } from './login.js';
 
 const app = express()
 const port = 3000;
@@ -26,10 +26,13 @@ const storage = multer.diskStorage({
 app.use(cors());
 app.use(express.json());
 
+app.post('/login', login);
+
 app.get('/tasks', async (req, res) => {
-    const tasks = await Task.find({});
+    const tasks = await Column.find({});
     res.json(tasks);
 });
+
 
 app.post('/files/upload', upload.single('files'), (req, res) => {
     const filePath = req.file.path;
@@ -38,7 +41,7 @@ app.post('/files/upload', upload.single('files'), (req, res) => {
 
 app.post('/tasks/add', async (req, res) => {
     try {
-        const newTask = await Task.create({
+        const newTask = await Column.create({
             title: req.body.title,
             dueDate: req.body.date,
             priority: req.body.priority,
@@ -58,7 +61,7 @@ app.post('/tasks/add', async (req, res) => {
 app.patch('/tasks/update/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const task = await Task.findById(id);
+    const task = await Column.findById(id);
     if (!task) {
       return res.status(404).json({ message: "Задача не найдена" });
     }

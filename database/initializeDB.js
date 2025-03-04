@@ -1,7 +1,7 @@
-import Task from "./database.js";
+import { Column } from "./database.js";
 
 async function InitializeDB() {
-    await Task.insertMany([
+    await Column.insertMany([
         {
             title: "Attend Nischal’s Birthday Party",
             dueDate: "2025/01/22",
