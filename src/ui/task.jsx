@@ -29,7 +29,7 @@ function TaskParams({ priority, status, dueDate }) {
       >
         {priority}
       </span>
-      <span>Статус: </span>
+      {/* <span>Статус: </span>
       <span
         className={clsx({
           [styles.notStarted]: status === "Not Started",
@@ -37,7 +37,7 @@ function TaskParams({ priority, status, dueDate }) {
         })}
       >
         {status}
-      </span>
+      </span> */}
       <div
         className={clsx(styles.dueDateCont, { [styles.overDueDate]: overDue })}
       >
@@ -66,7 +66,7 @@ function TaskParams({ priority, status, dueDate }) {
 
 export const Task = ({ description, title, priority, status, dueDate }) => {
   return (
-    <article>
+    <article className={styles.taskContainer}>
       <StatusIcon
         className={clsx({
           [styles.notStartedIcon]: status === "Not Started",

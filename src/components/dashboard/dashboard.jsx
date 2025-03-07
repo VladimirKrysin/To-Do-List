@@ -10,7 +10,6 @@ import { LoadingOverlay, Button, Flex } from "@mantine/core";
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
-import { useGetTasks } from "../../hooks/useGetTasks.js";
 import { renderTasksList } from "../../utils/renderTasksList.jsx";
 import { isDateDiffIn3Days } from "../../utils/isDateDiffIn3Days.js";
 import "../../App.css";
@@ -21,7 +20,7 @@ export const Dashboard = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const tasks = useGetTasks();
+  // const tasks = useGetTasks();
   return (
     <>
       <main className={styles.mainWrapper}>

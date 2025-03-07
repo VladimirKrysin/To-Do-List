@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import clsx from "clsx";
+import { formatDueDate } from "../../utils/formatTasks";
+import { isOverDue } from "../../utils/isOverDue";
 import SVGIcon from "../../ui/Icon-base";
+import "./kanban.css";
 export default function TaskCard({ task, updateTask, deleteTask }) {
   const [editMode, setEditMode] = useState(false);
   const [mouseIsOver, setMouseIsOver] = useState(false);
@@ -14,7 +18,7 @@ export default function TaskCard({ task, updateTask, deleteTask }) {
     transition,
     isDragging,
   } = useSortable({
-    id: task.id,
+    id: `task - ${task.number}`,
     data: {
       type: "Task",
       task,
@@ -44,13 +48,13 @@ export default function TaskCard({ task, updateTask, deleteTask }) {
         className="editCont"
       >
         <textarea
-          value={task.content}
+          // value={task.content}
           placeholder="Task content"
           onBlur={toggleEditMode}
           onKeyDown={(e) => {
             if (e.key === "Enter" && e.shiftKey) toggleEditMode();
           }}
-          onChange={(e) => updateTask(task.id, e.target.value)}
+          onChange={(e) => updateTask(task.number, e.target.value)}
           className="editTaskCard"
         ></textarea>
       </div>
@@ -71,11 +75,10 @@ export default function TaskCard({ task, updateTask, deleteTask }) {
         setMouseIsOver(false);
       }}
     >
-      {task.content}
       {mouseIsOver && (
         <button
           onClick={() => {
-            deleteTask(task.id);
+            deleteTask(task.number);
           }}
           className="deleteTaskButton"
         >
@@ -91,6 +94,52 @@ export default function TaskCard({ task, updateTask, deleteTask }) {
           />
         </button>
       )}
+
+      <h3 title={task.title}>
+        <a className="taskTitle" href="#">
+          {task.title}
+        </a>
+      </h3>
+      <p className="taskDesc">{task.description}</p>
+      <TaskParams priority={task.priority} dueDate={task.dueDate} />
+    </div>
+  );
+}
+
+function TaskParams({ priority, dueDate }) {
+  const overDue = isOverDue(dueDate);
+  const formattedDueDate = formatDueDate(dueDate);
+  return (
+    <div className="activeTextCont">
+      <span>Приоритет: </span>
+      <span
+        className={clsx({
+          moderatePrior: priority === "Средний",
+          extremePrior: priority === "Высокий",
+        })}
+      >
+        {priority}
+      </span>
+      <div className={clsx("dueDateCont", { overDueDate: overDue })}>
+        {overDue && (
+          <SVGIcon
+            name="clock"
+            stroke="currentColor"
+            strokeWidth="2"
+            size={16}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="icon icon-tabler icons-tabler-outline icon-tabler-clock"
+          />
+        )}
+        <span
+          className={clsx("createdDateText", {
+            overDueDateText: overDue,
+          })}
+        >
+          Срок: {formattedDueDate}
+        </span>
+      </div>
     </div>
   );
 }

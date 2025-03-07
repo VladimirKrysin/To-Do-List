@@ -6,13 +6,12 @@ const ColumnSchema = new Schema({
     _id: Number,
     name: String,
     number: Number,
-    children: [
+    tasks: [
         {
             number: Number,
             title: String,
             dueDate: Date,
             priority: String,
-            columnId: Number,
             description: String,
             filepath: [String]
         }

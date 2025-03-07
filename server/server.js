@@ -28,9 +28,14 @@ app.use(express.json());
 
 app.post('/login', login);
 
-app.get('/tasks', async (req, res) => {
-    const tasks = await Column.find({});
-    res.json(tasks);
+app.get('/data', async (req, res) => {
+  try {
+    const data = await Column.find({});
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Ошибка получения данных' });
+  }
 });
 
 

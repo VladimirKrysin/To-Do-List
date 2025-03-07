@@ -2,13 +2,12 @@ import styles from "./vitalTasks.module.css";
 import { useState, useEffect } from "react";
 import { SectionHeader } from "../../ui/section-header";
 import { Flex } from "@mantine/core";
-import { useGetTasks } from "../../hooks/useGetTasks.js";
 import { getVitalTasks } from "../../utils/getVitalsTasks.js";
 import { TaskCard } from "../../ui/taskCard/taskCard.jsx";
 import { renderTasksList } from "../../utils/renderTasksList.jsx";
 import "../../App.css";
 export const VitalTasks = () => {
-  const tasks = useGetTasks();
+  // const tasks = useGetTasks();
   const [selectedTask, setSelectedTask] = useState(null);
   const [vitalTasks, setVitalTasks] = useState([]);
 

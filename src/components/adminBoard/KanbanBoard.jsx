@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import "./kanban.css";
 import ColumnContainer from "./ColumnContainer";
 import {
@@ -11,11 +11,19 @@ import {
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 import TaskCard from "./TaskCard";
+import { ActionIcon, Button } from "@mantine/core";
+import SVGIcon from "../../ui/Icon-base";
+import { useGetData } from "../../hooks/useGetData";
 
 export default function KanbanBoard() {
+  const data = useGetData();
   const [columns, setColumns] = useState([]);
-  const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
-  const [tasks, setTasks] = useState([]);
+  const columnsNumbers = useMemo(
+    () => columns.map((col) => `col - ${col.number}`),
+    [columns]
+  );
+  // const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
+  // const [tasks, setTasks] = useState([]);
   const [activeColumn, setActiveColumn] = useState(null);
   const [activeTask, setActiveTask] = useState(null);
   const sensors = useSensors(
@@ -25,6 +33,17 @@ export default function KanbanBoard() {
       },
     })
   );
+
+  useEffect(() => {
+    if (data.length > 0) {
+      const columnsData = data.map((col) => ({
+        number: col.number,
+        name: col.name,
+        tasks: col.tasks,
+      }));
+      setColumns(columnsData);
+    }
+  }, [data]);
 
   function onDragStart(event) {
     if (event.active.data.current?.type === "Column") {
@@ -41,18 +60,98 @@ export default function KanbanBoard() {
   function onDragEnd(event) {
     setActiveColumn(null);
     setActiveTask(null);
+
     const { active, over } = event;
     if (!over) return;
-    const activeId = active.id;
-    const overId = over.id;
 
-    if (activeId === overId) return;
-    setColumns((columns) => {
-      const activeColumnIndex = columns.findIndex((col) => col.id === activeId);
-      const overColumnIndex = columns.findIndex((col) => col.id === overId);
+    const activeType = active?.data?.current?.type;
+    const overType = over?.data?.current?.type;
 
-      return arrayMove(columns, activeColumnIndex, overColumnIndex);
-    });
+    if (!activeType || !overType) return;
+
+    if (activeType === "Column") {
+      const activeId = active.id;
+      const overId = over.id;
+      if (activeId === overId) return;
+
+      setColumns((columns) => {
+        const activeColumnIndex = columns.findIndex(
+          (col) => `col - ${col.number}` === activeId
+        );
+        const overColumnIndex = columns.findIndex(
+          (col) => `col - ${col.number}` === overId
+        );
+
+        if (activeColumnIndex === -1 || overColumnIndex === -1) return columns;
+
+        return arrayMove(columns, activeColumnIndex, overColumnIndex);
+      });
+    }
+
+    if (activeType === "Task") {
+      setColumns((prevColumns) => {
+        const newColumns = structuredClone(prevColumns);
+
+        //колонка и  индекс активной задачи
+        let activeColIndex = -1;
+        let activeTaskIndex = -1;
+        newColumns.forEach((col, colIndex) => {
+          const index = col.tasks.findIndex(
+            (t) => `task - ${t.number}` === active.id
+          );
+          if (index !== -1) {
+            activeColIndex = colIndex;
+            activeTaskIndex = index;
+          }
+        });
+        if (activeColIndex === -1 || activeTaskIndex === -1) return newColumns;
+
+        // Определяем over
+        let targetColIndex = -1;
+        let targetTaskIndex = -1;
+
+        if (overType === "Task") {
+          newColumns.forEach((col, colIndex) => {
+            const index = col.tasks.findIndex(
+              (t) => `task - ${t.number}` === over.id
+            );
+            if (index !== -1) {
+              targetColIndex = colIndex;
+              targetTaskIndex = index;
+            }
+          });
+        } else if (overType === "Column") {
+          targetColIndex = newColumns.findIndex(
+            (col) => `col - ${col.number}` === over.id
+          );
+          targetTaskIndex = newColumns[targetColIndex]?.tasks?.length || 0;
+        }
+
+        if (targetColIndex === -1 || targetTaskIndex === -1) return newColumns;
+
+        if (activeColIndex === targetColIndex) {
+          if (activeTaskIndex !== targetTaskIndex) {
+            newColumns[activeColIndex].tasks = arrayMove(
+              newColumns[activeColIndex].tasks,
+              activeTaskIndex,
+              targetTaskIndex
+            );
+          }
+        } else {
+          const [movedTask] = newColumns[activeColIndex].tasks.splice(
+            activeTaskIndex,
+            1
+          );
+          newColumns[targetColIndex].tasks.splice(
+            targetTaskIndex,
+            0,
+            movedTask
+          );
+        }
+
+        return newColumns;
+      });
+    }
   }
 
   function onDragOver(event) {
@@ -67,22 +166,96 @@ export default function KanbanBoard() {
     const isOverTask = over.data.current?.type === "Task";
 
     if (!isActiveTask) return;
+
     if (isActiveTask && isOverTask) {
-      setTasks((tasks) => {
-        const activeIndex = tasks.findIndex((t) => t.id === activeId);
-        const overIndex = tasks.findIndex((t) => t.id === overId);
-        tasks[activeIndex].columnId = tasks[overIndex].columnId;
-        return arrayMove(tasks, activeIndex, overIndex);
+      setColumns((columns) => {
+        const newColumns = structuredClone(columns);
+
+        //Колонка и индекс активной задачи
+        let activeColumnIndex = -1;
+        let activeTaskIndex = -1;
+        newColumns.forEach((col, colIndex) => {
+          const index = col.tasks.findIndex(
+            (t) => `task - ${t.number}` === activeId
+          );
+          if (index !== -1) {
+            activeColumnIndex = colIndex;
+            activeTaskIndex = index;
+          }
+        });
+
+        // Колонка и индекс over задачи
+        let overColumnIndex = -1;
+        let overTaskIndex = -1;
+        newColumns.forEach((col, colIndex) => {
+          const index = col.tasks.findIndex(
+            (t) => `task - ${t.number}` === overId
+          );
+          if (index !== -1) {
+            overColumnIndex = colIndex;
+            overTaskIndex = index;
+          }
+        });
+
+        // Если не нашли хотя бы одну из задач
+        if (activeColumnIndex === -1 || overColumnIndex === -1) {
+          return newColumns;
+        }
+
+        if (activeColumnIndex === overColumnIndex) {
+          // Если задачи в одной колонке
+          newColumns[activeColumnIndex].tasks = arrayMove(
+            newColumns[activeColumnIndex].tasks,
+            activeTaskIndex,
+            overTaskIndex
+          );
+        } else {
+          // Если задачи в разных колонках — удаляем задачу из одной и вставляем в другую
+          const [movedTask] = newColumns[activeColumnIndex].tasks.splice(
+            activeTaskIndex,
+            1
+          );
+          newColumns[overColumnIndex].tasks.splice(overTaskIndex, 0, movedTask);
+        }
+
+        return newColumns;
       });
     }
 
     const isOverAColumn = over.data.current?.type === "Column";
 
     if (isActiveTask && isOverAColumn) {
-      setTasks((tasks) => {
-        const activeIndex = tasks.findIndex((t) => t.id === activeId);
-        tasks[activeIndex].columnId = overId;
-        return arrayMove(tasks, activeIndex, activeIndex);
+      setColumns((columns) => {
+        const newColumns = JSON.parse(JSON.stringify(columns));
+
+        // Поиск активной задачи
+        let activeColumnIndex = -1;
+        let activeTaskIndex = -1;
+        newColumns.forEach((col, colIndex) => {
+          const index = col.tasks.findIndex(
+            (t) => `task - ${t.number}` === activeId
+          );
+          if (index !== -1) {
+            activeColumnIndex = colIndex;
+            activeTaskIndex = index;
+          }
+        });
+        if (activeColumnIndex === -1) return newColumns;
+
+        // Over колонка
+        const targetColumnIndex = newColumns.findIndex(
+          (col) => `col - ${col.number}` === overId
+        );
+        if (targetColumnIndex === -1) return newColumns;
+
+        // Удаление задачи из active колонки
+        const [movedTask] = newColumns[activeColumnIndex].tasks.splice(
+          activeTaskIndex,
+          1
+        );
+        newColumns[targetColumnIndex].tasks.push(movedTask);
+
+        return newColumns;
       });
     }
   }
@@ -90,23 +263,25 @@ export default function KanbanBoard() {
   function createNewColumn() {
     const columnToAdd = {
       id: generateId(),
-      title: `Column ${columns.length + 1}`,
+      number: generateId(),
+      name: `Column ${columns.length + 1}`,
+      tasks: [],
     };
     setColumns([...columns, columnToAdd]);
   }
 
-  function updateColumn(id, title) {
+  function updateColumn(number, name) {
     const newColumns = columns.map((col) => {
-      if (col.id !== id) return col;
-      return { ...col, title };
+      if (col.number !== number) return col;
+      return { ...col, name };
     });
     setColumns(newColumns);
   }
 
-  function deleteColumn(id) {
-    const newColumns = columns.filter((column) => column.id !== id);
+  function deleteColumn(number) {
+    const newColumns = columns.filter((column) => column.number !== number);
     setColumns(newColumns);
-    const newTasks = tasks.filter((task) => task.columnId !== id);
+    const newTasks = tasks.filter((task) => task.number !== number);
     setTasks(newTasks);
   }
 
@@ -144,33 +319,47 @@ export default function KanbanBoard() {
         >
           <div className="kanbanWrapper">
             <div className="columnWrapper">
-              <SortableContext items={columnsId}>
+              <SortableContext items={columnsNumbers}>
                 <ul className="columnsList">
                   {columns.map((column) => (
                     <ColumnContainer
-                      key={column.id}
+                      key={`col - ${column.number}`}
                       column={column}
                       updateColumn={updateColumn}
                       deleteColumn={deleteColumn}
                       createTask={createTask}
                       deleteTask={deleteTask}
                       updateTask={updateTask}
-                      tasks={tasks.filter(
-                        (task) => task.columnId === column.id
-                      )}
+                      tasks={column.tasks}
                     />
                   ))}
                 </ul>
               </SortableContext>
             </div>
-            <button
+            <Button
               onClick={() => {
                 createNewColumn();
               }}
-              className="addButton"
+              variant="filled"
+              color="#5030E5"
+              leftSection={
+                <SVGIcon
+                  name="addColumn"
+                  idth={24}
+                  height={24}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="icon icon-tabler icons-tabler-outline icon-tabler-plus"
+                />
+              }
+              radius="0.5rem"
             >
-              Add Column
-            </button>
+              Добавить колонку
+            </Button>
           </div>
 
           {createPortal(
@@ -183,13 +372,18 @@ export default function KanbanBoard() {
                   createTask={createTask}
                   updateTask={updateTask}
                   deleteTask={deleteTask}
-                  tasks={tasks.filter(
-                    (task) => task.columnId === activeColumn.id
-                  )}
+                  tasks={activeColumn.tasks}
+                  // tasks={tasks.filter(
+                  //   (task) => task.columnId === activeColumn.id
+                  // )}
                 />
               )}
               {activeTask && (
-                <TaskCard task={activeTask} updateTask={updateTask} />
+                <TaskCard
+                  task={activeTask}
+                  updateTask={updateTask}
+                  deleteTask={deleteTask}
+                />
               )}
             </DragOverlay>,
             document.body

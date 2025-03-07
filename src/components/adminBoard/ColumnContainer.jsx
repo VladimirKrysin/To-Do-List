@@ -4,6 +4,11 @@ import "./kanban.css";
 import { useMemo, useState } from "react";
 import TaskCard from "./TaskCard";
 import SVGIcon from "../../ui/Icon-base";
+import { useDisclosure } from "@mantine/hooks";
+import { Modal } from "@mantine/core";
+import { Task } from "../../ui/task";
+import { ActionIcon } from "@mantine/core";
+import { NewTask } from "../../ui/new-task";
 
 export default function ColumnContainer({
   column,
@@ -14,9 +19,11 @@ export default function ColumnContainer({
   updateTask,
   tasks,
 }) {
+  const [opened, { open, close }] = useDisclosure(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const tasksIds = useMemo(() => {
-    return tasks.map((task) => task.id);
+  const tasksNumbers = useMemo(() => {
+    return tasks.map((task) => `task - ${task.number}`);
   }, [tasks]);
   const {
     attributes,
@@ -26,7 +33,7 @@ export default function ColumnContainer({
     transition,
     isDragging,
   } = useSortable({
-    id: column.id,
+    id: `col - ${column.number}`,
     data: {
       type: "Column",
       column,
@@ -44,66 +51,103 @@ export default function ColumnContainer({
   //   );
   // }
   return (
-    <li ref={setNodeRef} style={style} className={`column ${isDragging ? 'dragging' : ''}`}>
-      <div className={`columnContent ${isDragging ? 'draggingColumn' : ''}`}>
-        <div
-          {...attributes}
-          {...listeners}
-          onClick={() => setEditMode(true)}
-          className="columTitle"
-        >
-          {!editMode && column.title}
-          {editMode && (
-            <input
-              value={column.title}
-              onChange={(e) => updateColumn(column.id, e.target.value)}
-              autoFocus
-              onBlur={() => {
-                setEditMode(false);
-              }}
-              onKeyDown={(e) => {
-                if (e.key !== "Enter") return;
-                setEditMode(false);
-              }}
-            />
-          )}
-          <button
-            onClick={() => {
-              deleteColumn(column.id);
-            }}
-            className="deleteColumnButton"
+    <li
+      ref={setNodeRef}
+      style={style}
+      className={`column ${isDragging ? "dragging" : ""}`}
+    >
+      <div className={`columnContent ${isDragging ? "draggingColumn" : ""}`}>
+        <div className="columnHeader">
+          <div
+            {...attributes}
+            {...listeners}
+            onClick={() => setEditMode(true)}
+            className="columnTitle"
           >
-            <SVGIcon
-              name="trash"
-              size={18}
-              fill="none"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="icon icon-tabler icons-tabler-outline icon-tabler-trash"
-            />
-          </button>
-        </div>
-        <div className="columContent">
-          <SortableContext items={tasksIds}>
-            {tasks.map((task) => (
-              <TaskCard
-                key={task.id}
-                task={task}
-                updateTask={updateTask}
-                deleteTask={deleteTask}
+            {!editMode && column.name}
+            {editMode && (
+              <input
+                value={column.name}
+                onChange={(e) => updateColumn(column.number, e.target.value)}
+                autoFocus
+                onBlur={() => {
+                  setEditMode(false);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key !== "Enter") return;
+                  setEditMode(false);
+                }}
               />
-            ))}
+            )}
+          </div>
+          <div className="actionIconsCont">
+            <ActionIcon
+              onClick={open}
+              // onClick={() => {
+              //   createTask(column.id);
+              // }}
+              variant="light"
+              color="#5030E5"
+            >
+              <SVGIcon
+                name="addTask"
+                size={12}
+                viewBox="0 0 13 12"
+                fill="none"
+              />
+            </ActionIcon>
+
+            <button
+              onClick={() => {
+                deleteColumn(column.number);
+              }}
+              className="deleteColumnButton"
+            >
+              <SVGIcon
+                name="trash"
+                size={24}
+                fill="none"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="icon icon-tabler icons-tabler-outline icon-tabler-trash"
+              />
+            </button>
+          </div>
+        </div>
+        <Modal
+          opened={opened}
+          onClose={close}
+          title="Добавить задачу"
+          centered
+          size="auto"
+          styles={{
+            header: {
+              paddingTop: "1.5rem",
+              paddingLeft: "2.5rem",
+              paddingRight: "2rem",
+            },
+            title: {
+              fontWeight: "600",
+            },
+          }}
+        >
+          <NewTask setLoading={setIsLoading} close={close} />
+        </Modal>
+        <div className="columnTasks">
+          <SortableContext items={tasksNumbers}>
+            {tasks.map((task) => {
+              return (
+                <TaskCard
+                  key={`task - ${task.number}`}
+                  task={task}
+                  updateTask={updateTask}
+                  deleteTask={deleteTask}
+                />
+              );
+            })}
           </SortableContext>
         </div>
-        <button
-          onClick={() => {
-            createTask(column.id);
-          }}
-          className="addTaskButton"
-        >
-          Add task
-        </button>
       </div>
     </li>
   );

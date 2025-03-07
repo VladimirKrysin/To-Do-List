@@ -352,3 +352,11 @@ ul {
         0px 121px 34px 0px rgba(0, 0, 0, 0);
 
 }
+
+.taskContainer {
+    position: relative;
+    padding: 0.75rem;
+    border: 1px solid rgba(161, 163, 171, 1);
+    border-radius: 0.875rem;
+    background: rgba(245, 248, 255, 1);
+}
