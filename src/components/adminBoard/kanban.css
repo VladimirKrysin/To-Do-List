@@ -1,6 +1,7 @@
 
 
 .pageCont {
+    position: relative;
     height: auto;
     margin-left: 16rem;
     padding-left: 4rem;
@@ -16,11 +17,14 @@
     display: flex;
     height: 100%;
     margin-top: 2rem;
-    padding: 1.5rem;
-    gap: 2rem;
     background: #F5F8FF;
 }
 
+.addColumnIcon {
+    position: absolute;
+    right: 0.5rem;
+    top: 4rem;
+}
 
 .addButton {
     margin-top: 140px;
@@ -57,7 +61,7 @@
         0px 77px 31px 0px #00000003,
 
         0px 121px 34px 0px rgba(0, 0, 0, 0);
-    border: 2px solid red;
+    border: 1px solid #C7C7C7;
     list-style: none;
     
 }
@@ -78,8 +82,7 @@
     display: flex;
     margin: 0;
     padding: 0; 
-    /* height: 100%; */
-    gap: 0.5rem;
+    gap: 3rem;
 }
 
 .draggingColumn {

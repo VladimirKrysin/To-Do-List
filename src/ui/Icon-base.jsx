@@ -102,9 +102,15 @@ const getPath = (name, fill) => {
     case "addColumn":
       return (
         <>
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M12 5l0 14" />
-          <path d="M5 12l14 0" />
+          <path
+            opacity="0.2"
+            d="M20.4892 2H9.88402C5.27746 2 2.53125 4.17 2.53125 7.81V16.18C2.53125 19.83 5.27746 22 9.88402 22H20.4766C25.0831 22 27.8293 19.83 27.8293 16.19V7.81C27.842 4.17 25.0958 2 20.4892 2Z"
+            fill="#5030E5"
+          />
+          <path
+            d="M20.2487 11.25H16.1357V8C16.1357 7.59 15.7055 7.25 15.1866 7.25C14.6677 7.25 14.2374 7.59 14.2374 8V11.25H10.1244C9.60558 11.25 9.17529 11.59 9.17529 12C9.17529 12.41 9.60558 12.75 10.1244 12.75H14.2374V16C14.2374 16.41 14.6677 16.75 15.1866 16.75C15.7055 16.75 16.1357 16.41 16.1357 16V12.75H20.2487C20.7676 12.75 21.1979 12.41 21.1979 12C21.1979 11.59 20.7676 11.25 20.2487 11.25Z"
+            fill="#5030E5"
+          />
         </>
       );
 
@@ -114,6 +120,8 @@ const getPath = (name, fill) => {
 };
 
 const SVGIcon = ({
+  width = "",
+  height = "",
   name = "",
   fill = "",
   viewBox = "",
@@ -122,8 +130,8 @@ const SVGIcon = ({
   ...props
 }) => (
   <svg
-    width={size}
-    height={size}
+    width={width || size}
+    height={height || size}
     className={className}
     xmlns="http://www.w3.org/2000/svg"
     viewBox={viewBox || getViewBox(name)}

@@ -81,14 +81,7 @@ export default function ColumnContainer({
             )}
           </div>
           <div className="actionIconsCont">
-            <ActionIcon
-              onClick={open}
-              // onClick={() => {
-              //   createTask(column.id);
-              // }}
-              variant="light"
-              color="#5030E5"
-            >
+            <ActionIcon onClick={open} variant="light" color="#5030E5">
               <SVGIcon
                 name="addTask"
                 size={12}
@@ -140,6 +133,7 @@ export default function ColumnContainer({
               return (
                 <TaskCard
                   key={`task - ${task.number}`}
+                  column={column}
                   task={task}
                   updateTask={updateTask}
                   deleteTask={deleteTask}

@@ -14,6 +14,7 @@ import TaskCard from "./TaskCard";
 import { ActionIcon, Button } from "@mantine/core";
 import SVGIcon from "../../ui/Icon-base";
 import { useGetData } from "../../hooks/useGetData";
+import clsx from "clsx";
 
 export default function KanbanBoard() {
   const data = useGetData();
@@ -22,8 +23,6 @@ export default function KanbanBoard() {
     () => columns.map((col) => `col - ${col.number}`),
     [columns]
   );
-  // const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
-  // const [tasks, setTasks] = useState([]);
   const [activeColumn, setActiveColumn] = useState(null);
   const [activeTask, setActiveTask] = useState(null);
   const sensors = useSensors(
@@ -281,8 +280,6 @@ export default function KanbanBoard() {
   function deleteColumn(number) {
     const newColumns = columns.filter((column) => column.number !== number);
     setColumns(newColumns);
-    const newTasks = tasks.filter((task) => task.number !== number);
-    setTasks(newTasks);
   }
 
   function createTask(columnId) {
@@ -302,11 +299,19 @@ export default function KanbanBoard() {
     setTasks(newTasks);
   }
 
-  function deleteTask(id) {
-    const newTasks = tasks.filter((task) => task.id !== id);
-    setTasks(newTasks);
-  }
+  function deleteTask(columnNumber, taskNumber) {
+    const newColumns = columns.map((column) => {
+      if (column.number === columnNumber) {
+        return {
+          ...column,
+          tasks: column.tasks.filter((task) => task.number !== taskNumber),
+        };
+      }
+      return column;
+    });
 
+    setColumns(newColumns);
+  }
   return (
     <main className="pageCont">
       <section>
@@ -336,30 +341,23 @@ export default function KanbanBoard() {
                 </ul>
               </SortableContext>
             </div>
-            <Button
+            <ActionIcon
               onClick={() => {
                 createNewColumn();
+                setIsColumn(true);
               }}
-              variant="filled"
-              color="#5030E5"
-              leftSection={
-                <SVGIcon
-                  name="addColumn"
-                  idth={24}
-                  height={24}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="icon icon-tabler icons-tabler-outline icon-tabler-plus"
-                />
-              }
-              radius="0.5rem"
+              variant="transparent"
+              size={32}
+              className={clsx({ addColumnIcon: columns.length })}
             >
-              Добавить колонку
-            </Button>
+              <SVGIcon
+                name="addColumn"
+                width="31"
+                height="24"
+                viewBox="0 0 31 24"
+                fill="none"
+              />
+            </ActionIcon>
           </div>
 
           {createPortal(
@@ -373,9 +371,6 @@ export default function KanbanBoard() {
                   updateTask={updateTask}
                   deleteTask={deleteTask}
                   tasks={activeColumn.tasks}
-                  // tasks={tasks.filter(
-                  //   (task) => task.columnId === activeColumn.id
-                  // )}
                 />
               )}
               {activeTask && (

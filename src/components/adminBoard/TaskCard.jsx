@@ -6,8 +6,7 @@ import { formatDueDate } from "../../utils/formatTasks";
 import { isOverDue } from "../../utils/isOverDue";
 import SVGIcon from "../../ui/Icon-base";
 import "./kanban.css";
-export default function TaskCard({ task, updateTask, deleteTask }) {
-  const [editMode, setEditMode] = useState(false);
+export default function TaskCard({ column, task, updateTask, deleteTask }) {
   const [mouseIsOver, setMouseIsOver] = useState(false);
 
   const {
@@ -23,7 +22,7 @@ export default function TaskCard({ task, updateTask, deleteTask }) {
       type: "Task",
       task,
     },
-    disabled: editMode,
+    // disabled: editMode,
   });
 
   const style = {
@@ -38,35 +37,12 @@ export default function TaskCard({ task, updateTask, deleteTask }) {
   if (isDragging) {
     return <div ref={setNodeRef} style={style} className="draggingTaskCard" />;
   }
-  if (editMode) {
-    return (
-      <div
-        ref={setNodeRef}
-        {...attributes}
-        {...listeners}
-        style={style}
-        className="editCont"
-      >
-        <textarea
-          // value={task.content}
-          placeholder="Task content"
-          onBlur={toggleEditMode}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && e.shiftKey) toggleEditMode();
-          }}
-          onChange={(e) => updateTask(task.number, e.target.value)}
-          className="editTaskCard"
-        ></textarea>
-      </div>
-    );
-  }
   return (
     <div
       ref={setNodeRef}
       {...attributes}
       {...listeners}
       style={style}
-      onClick={toggleEditMode}
       className="taskCard"
       onMouseEnter={() => {
         setMouseIsOver(true);
@@ -78,7 +54,7 @@ export default function TaskCard({ task, updateTask, deleteTask }) {
       {mouseIsOver && (
         <button
           onClick={() => {
-            deleteTask(task.number);
+            deleteTask(column.number, task.number);
           }}
           className="deleteTaskButton"
         >
