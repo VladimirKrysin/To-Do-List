@@ -52,6 +52,7 @@ export default function KanbanBoard() {
 
     if (event.active.data.current?.type === "Task") {
       setActiveTask(event.active.data.current.task);
+      setActiveColumn(event.active.data.current.column);
       return;
     }
   }
@@ -86,17 +87,16 @@ export default function KanbanBoard() {
         return arrayMove(columns, activeColumnIndex, overColumnIndex);
       });
     }
-
     if (activeType === "Task") {
       setColumns((prevColumns) => {
         const newColumns = structuredClone(prevColumns);
 
-        //колонка и  индекс активной задачи
+        // Находим колонку и индекс активной задачи
         let activeColIndex = -1;
         let activeTaskIndex = -1;
         newColumns.forEach((col, colIndex) => {
           const index = col.tasks.findIndex(
-            (t) => `task - ${t.number}` === active.id
+            (t) => `column-${col.number}-task-${t.number}` === active.id
           );
           if (index !== -1) {
             activeColIndex = colIndex;
@@ -105,14 +105,13 @@ export default function KanbanBoard() {
         });
         if (activeColIndex === -1 || activeTaskIndex === -1) return newColumns;
 
-        // Определяем over
+        // Определяем целевую колонку и индекс для вставки
         let targetColIndex = -1;
         let targetTaskIndex = -1;
-
         if (overType === "Task") {
           newColumns.forEach((col, colIndex) => {
             const index = col.tasks.findIndex(
-              (t) => `task - ${t.number}` === over.id
+              (t) => `column-${col.number}-task-${t.number}` === over.id
             );
             if (index !== -1) {
               targetColIndex = colIndex;
@@ -125,9 +124,9 @@ export default function KanbanBoard() {
           );
           targetTaskIndex = newColumns[targetColIndex]?.tasks?.length || 0;
         }
-
         if (targetColIndex === -1 || targetTaskIndex === -1) return newColumns;
 
+        // Перемещение задачи
         if (activeColIndex === targetColIndex) {
           if (activeTaskIndex !== targetTaskIndex) {
             newColumns[activeColIndex].tasks = arrayMove(
@@ -148,9 +147,90 @@ export default function KanbanBoard() {
           );
         }
 
+        // Переиндексируем задачи в обеих колонках, где произошло изменение
+        newColumns[activeColIndex].tasks = newColumns[activeColIndex].tasks.map(
+          (task, index) => ({
+            ...task,
+            number: index,
+          })
+        );
+        if (activeColIndex !== targetColIndex) {
+          newColumns[targetColIndex].tasks = newColumns[
+            targetColIndex
+          ].tasks.map((task, index) => ({
+            ...task,
+            number: index,
+          }));
+        }
+
         return newColumns;
       });
     }
+
+    // if (activeType === "Task") {
+    //   setColumns((prevColumns) => {
+    //     const newColumns = structuredClone(prevColumns);
+
+    //     //колонка и  индекс активной задачи
+    //     let activeColIndex = -1;
+    //     let activeTaskIndex = -1;
+    //     newColumns.forEach((col, colIndex) => {
+    //       const index = col.tasks.findIndex(
+    //         (t) => `task - ${t.number}` === active.id
+    //       );
+    //       if (index !== -1) {
+    //         activeColIndex = colIndex;
+    //         activeTaskIndex = index;
+    //       }
+    //     });
+    //     if (activeColIndex === -1 || activeTaskIndex === -1) return newColumns;
+
+    //     // Определяем over
+    //     let targetColIndex = -1;
+    //     let targetTaskIndex = -1;
+
+    //     if (overType === "Task") {
+    //       newColumns.forEach((col, colIndex) => {
+    //         const index = col.tasks.findIndex(
+    //           (t) => `task - ${t.number}` === over.id
+    //         );
+    //         if (index !== -1) {
+    //           targetColIndex = colIndex;
+    //           targetTaskIndex = index;
+    //         }
+    //       });
+    //     } else if (overType === "Column") {
+    //       targetColIndex = newColumns.findIndex(
+    //         (col) => `col - ${col.number}` === over.id
+    //       );
+    //       targetTaskIndex = newColumns[targetColIndex]?.tasks?.length || 0;
+    //     }
+
+    //     if (targetColIndex === -1 || targetTaskIndex === -1) return newColumns;
+
+    //     if (activeColIndex === targetColIndex) {
+    //       if (activeTaskIndex !== targetTaskIndex) {
+    //         newColumns[activeColIndex].tasks = arrayMove(
+    //           newColumns[activeColIndex].tasks,
+    //           activeTaskIndex,
+    //           targetTaskIndex
+    //         );
+    //       }
+    //     } else {
+    //       const [movedTask] = newColumns[activeColIndex].tasks.splice(
+    //         activeTaskIndex,
+    //         1
+    //       );
+    //       newColumns[targetColIndex].tasks.splice(
+    //         targetTaskIndex,
+    //         0,
+    //         movedTask
+    //       );
+    //     }
+
+    //     return newColumns;
+    //   });
+    // }
   }
 
   function onDragOver(event) {
@@ -171,11 +251,23 @@ export default function KanbanBoard() {
         const newColumns = structuredClone(columns);
 
         //Колонка и индекс активной задачи
+        // let activeColumnIndex = -1;
+        // let activeTaskIndex = -1;
+        // newColumns.forEach((col, colIndex) => {
+        //   const index = col.tasks.findIndex(
+        //     (t) => `task - ${t.number}` === activeId
+        //   );
+        //   if (index !== -1) {
+        //     activeColumnIndex = colIndex;
+        //     activeTaskIndex = index;
+        //   }
+        // });
+
         let activeColumnIndex = -1;
         let activeTaskIndex = -1;
         newColumns.forEach((col, colIndex) => {
           const index = col.tasks.findIndex(
-            (t) => `task - ${t.number}` === activeId
+            (t) => `column-${col.number}-task-${t.number}` === activeId
           );
           if (index !== -1) {
             activeColumnIndex = colIndex;
@@ -375,6 +467,7 @@ export default function KanbanBoard() {
               )}
               {activeTask && (
                 <TaskCard
+                  column={activeColumn}
                   task={activeTask}
                   updateTask={updateTask}
                   deleteTask={deleteTask}

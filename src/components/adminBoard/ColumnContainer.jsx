@@ -23,8 +23,8 @@ export default function ColumnContainer({
   const [isLoading, setIsLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const tasksNumbers = useMemo(() => {
-    return tasks.map((task) => `task - ${task.number}`);
-  }, [tasks]);
+    return tasks.map((task) => `column-${column.number}-task-${task.number}`);
+  }, [tasks, column.number]);
   const {
     attributes,
     listeners,
@@ -132,7 +132,7 @@ export default function ColumnContainer({
             {tasks.map((task) => {
               return (
                 <TaskCard
-                  key={`task - ${task.number}`}
+                  key={`column-${column.number}-task-${task.number}`}
                   column={column}
                   task={task}
                   updateTask={updateTask}

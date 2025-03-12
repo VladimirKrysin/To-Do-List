@@ -8,7 +8,6 @@ import SVGIcon from "../../ui/Icon-base";
 import "./kanban.css";
 export default function TaskCard({ column, task, updateTask, deleteTask }) {
   const [mouseIsOver, setMouseIsOver] = useState(false);
-
   const {
     attributes,
     listeners,
@@ -17,10 +16,11 @@ export default function TaskCard({ column, task, updateTask, deleteTask }) {
     transition,
     isDragging,
   } = useSortable({
-    id: `task - ${task.number}`,
+    id: `column-${column.number}-task-${task.number}`,
     data: {
       type: "Task",
       task,
+      column,
     },
     // disabled: editMode,
   });
